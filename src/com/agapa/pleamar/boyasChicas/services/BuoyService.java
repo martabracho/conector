@@ -1,4 +1,7 @@
 package com.agapa.pleamar.boyasChicas.services;
+
+import com.agapa.pleamar.boyasChicas.model.Buoy;
+
 @Service
 public class BuoyService {
 
