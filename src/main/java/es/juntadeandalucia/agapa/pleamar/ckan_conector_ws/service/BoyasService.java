@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class BoyasService {
 
     public String getHolaMundo(){
-        WebClient client = WebClient.create("http://localhost:8080");
-        return client.get().uri("/boyas/holaMundo").retrieve().bodyToMono(String.class).block();
+        WebClient client = WebClient.create("https://obscape.com");
+        return client.get().uri("/portal/api/v3/api?username=reolaagapa&key=uxLiHTj1cC3WdAtjXIE5NJA62Y8WOd6iKQAsJTtWwwSK8m456H").retrieve().bodyToMono(String.class).block();
     }
 }
