@@ -10,14 +10,14 @@ spring:
   main:
     allow-bean-definition-overriding: true
   application:
-    name: ckan_conector_ws
+    name: @project.artifactId@
   profiles:
-    active: ${SPRING_PROFILES_ACTIVE:default}
+    active: default
   cloud:
     config:
-      enabled: ${configserver.enable:true}
-      profile: ${PROFILE_SPRINGCLOUD:v01}
-      label: ${CONFIG_SERVER_LABEL:master}
+      enabled: true
+      profile: v01
+      label: master
       fail-fast: true
 
 server:
