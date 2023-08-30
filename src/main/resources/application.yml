@@ -9,3 +9,6 @@ info:
 spring:
   application:
     name: @project.artifactId@
+
+server:
+  servlet.contextPath: /ckan-conector-ws
