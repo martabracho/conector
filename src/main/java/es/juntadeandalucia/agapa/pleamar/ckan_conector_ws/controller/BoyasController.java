@@ -1,5 +1,7 @@
 package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.service.BoyaChicaService;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.service.BoyasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,15 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class BoyasController {
     BoyasService boyasService;
 
+    BoyaChicaService boyaChicaService;
+
     @Value("${prueba}")
     private String pruebaConfiguracion;
     @Autowired
-    public BoyasController(BoyasService boyasService) {
+    public BoyasController(BoyasService boyasService,BoyaChicaService boyaChicaService) {
         this.boyasService = boyasService;
+        this.boyaChicaService = boyaChicaService;
     }
 
     @GetMapping("/holaMundo")
-    public ResponseEntity<String> holaMundo( ){
+    public ResponseEntity<String> holaMundo( ) throws JsonProcessingException {
         return new ResponseEntity<>("holaMundo"+ this.pruebaConfiguracion, HttpStatus.OK);
     }
 
