@@ -6,6 +6,7 @@ import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.repository.boyachica.B
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -21,7 +22,7 @@ public class BoyaChicaService {
         this.kmlService = kmlService;
     }
     public String obtenerKmlBoyaChica(String project, int id) throws JsonProcessingException {
-        Optional<BoyaChica> boyaChica = boyaChicaRepository.getBoyaChica(project,id);
-        return this.kmlService.convertirGenerarKML(boyaChica.get());
+        List<BoyaChica> boyasChicas = boyaChicaRepository.getBoyaChica(project,id);
+        return this.kmlService.convertirGenerarKML(boyasChicas);
     }
 }
