@@ -2,66 +2,31 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.util.List;
+import java.util.Arrays;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BoyaChica {
 
-    private String name;
-    private int id;
-    private String latitude;
-    private String longitude;
 
+    private BoyaChicaRegistro[] data;
 
-    private Device devices;
-
-    public String getName() {
-        return name;
+    public BoyaChica(){}
+    public BoyaChica(BoyaChicaRegistro[] data) {
+        this.data = data;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public BoyaChicaRegistro[] getData() {
+        return data;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Device getDevices() {
-        return devices;
-    }
-
-    public void setDevices(Device devices) {
-        this.devices = devices;
-    }
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
+    public void setData(BoyaChicaRegistro[] data) {
+        this.data = data;
     }
 
     @Override
     public String toString() {
         return "BoyaChica{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                ", latitude='" + latitude + '\'' +
-                ", longitude='" + longitude + '\'' +
+                "data=" + Arrays.toString(data) +
                 '}';
     }
 }

@@ -3,30 +3,38 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.repository.boyachica;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.BoyaChica;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.Proyecto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class BoyaChicaRepository {
 
-    public List<BoyaChica> getBoyaChica(String project, int id) throws JsonProcessingException {
-        List<BoyaChica> boyaChica = null;
-        WebClient client = WebClient.create("https://obscape.com");
-        String jsonBoyaChica = client.get().uri( uriBuilder -> uriBuilder.path("/portal/api/v3/api")
-                                                    .queryParam("username", "reolaagapa")
-                                                    .queryParam("key", "uxLiHTj1cC3WdAtjXIE5NJA62Y8WOd6iKQAsJTtWwwSK8m456H")
-                                                    .queryParam("project",project)
-                        .build()
+    @Value("${boyaschicas.api.url}")
+    private String url;
+    @Value("${boyaschicas.api.pathBase}")
+    private String pathBase;
+    @Value("${boyaschicas.api.usuario}")
+    private String usuario;
+    @Value("${boyaschicas.api.password}")
+    private String password;
 
-                                                ).retrieve().bodyToMono(String.class).block();
+    public BoyaChica getBoyaChica(String project, int idBoya) throws JsonProcessingException {
+        WebClient client = WebClient.create(url);
+        String jsonBoyaChica = client.get().uri(uriBuilder -> uriBuilder.path(pathBase)
+                .queryParam("username", usuario)
+                .queryParam("key", password)
+                .queryParam("project", project)
+                .queryParam("station",idBoya)
+                .queryParam("dataOnly")
+                .build()
+        ).retrieve().bodyToMono(String.class).block();
         ObjectMapper objectMapper = new ObjectMapper();
-        BoyaChica []  boyaChicas = objectMapper.readValue(jsonBoyaChica,BoyaChica[].class );
-        List<BoyaChica> listaBoyasChicas = Arrays.asList(boyaChicas);
-        return listaBoyasChicas;
+        return objectMapper.readValue(jsonBoyaChica, BoyaChica.class);
     }
+
+
 }
