@@ -29,10 +29,6 @@ public class BoyaChicaController {
         this.boyaChicaService = boyaChicaService;
     }
 
-    @GetMapping("/")
-    public ResponseEntity<String> holaMundo(@RequestParam String project, @RequestParam int id) throws JsonProcessingException {
-        return new ResponseEntity<>(this.boyaChicaService.obtenerKmlBoyaChica(project, id), HttpStatus.OK);
-    }
 
     @GetMapping("/boyachica/kml")
     public ResponseEntity<String> boyasChicasKml() throws JsonProcessingException {

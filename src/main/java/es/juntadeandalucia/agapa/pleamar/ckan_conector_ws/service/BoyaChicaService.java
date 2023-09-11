@@ -22,17 +22,12 @@ public class BoyaChicaService {
     private ProyectoService proyectoService;
     private BoyaChicaRepository boyaChicaRepository;
 
-    private KmlService kmlService;
+
 
     @Autowired
-    public BoyaChicaService (BoyaChicaRepository boyaChicaRepository, KmlService kmlService, ProyectoService proyectoService ){
+    public BoyaChicaService (BoyaChicaRepository boyaChicaRepository, ProyectoService proyectoService ){
         this.boyaChicaRepository = boyaChicaRepository;
-        this.kmlService = kmlService;
         this.proyectoService = proyectoService;
-    }
-    public String obtenerKmlBoyaChica(String project, int id) throws JsonProcessingException {
-        //List<Proyecto> boyasChicas = boyaChicaRepository.getBoyaChica(project,id);
-        return this.kmlService.convertirGenerarKML(null);
     }
 
 
