@@ -30,24 +30,7 @@ public class BoyaChicaController {
     }
 
 
-    @GetMapping("/boyachica/kml")
-    public ResponseEntity<String> boyasChicasKml() throws JsonProcessingException {
-        return new ResponseEntity<>(this.boyaChicaService.obtenerKmlBoyasChicas(), HttpStatus.OK);
-    }
 
-    @GetMapping("/boyachica/csv")
-    public ResponseEntity<String> boyasChicasCSV() throws JsonProcessingException {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=boyasChicas.csv" );
-        // defining the custom Content-Type
-        headers.set(HttpHeaders.CONTENT_TYPE, "text/csv");
-
-        return new ResponseEntity<>(
-                this.boyaChicaService.obtenerCsvBoyasChicas().toString().trim(),
-                headers,
-                HttpStatus.OK
-        );
-    }
 
 
 }
