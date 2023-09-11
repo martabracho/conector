@@ -7,11 +7,15 @@ import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.BoyaCh
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.Proyecto;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.ProyectoItem;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.repository.boyachica.BoyaChicaRepository;
+import org.apache.commons.csv.CSVPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.List;
 
+import org.apache.commons.csv.CSVFormat;
 @Component
 public class BoyaChicaService {
 
@@ -59,5 +63,36 @@ public class BoyaChicaService {
         kml.append("</Document>\n");
         kml.append("</kml>\n");
         return kml.toString();
+    }
+
+    public StringWriter obtenerCsvBoyasChicas() throws JsonProcessingException {
+
+        StringWriter sw = new StringWriter();
+        String[] HEADERS = { "Latitud", "Longitud"};
+
+        CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
+                .setHeader(HEADERS)
+                .build();
+
+        List<ProyectoItem> proyectosItem = this.proyectoService.getProyectosItem();
+
+        try (final CSVPrinter printer = new CSVPrinter(sw, csvFormat)) {
+            for (ProyectoItem proyectoItem : proyectosItem) {
+                Proyecto proyecto = this.proyectoService.getProyecto(proyectoItem.getName());
+                for (BoyaChicaItem boyaChicaItem : proyecto.getBoyaChicaItem()) {
+
+                    try {
+                        printer.printRecord(boyaChicaItem.getLatitude(), boyaChicaItem.getLongitude());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return sw;
+
     }
 }
