@@ -9,7 +9,17 @@ public class Proyecto {
 
   private BoyaChicaItem [] boyaChicaItem;
 
+    public Proyecto(){}
+
     public Proyecto(BoyaChicaItem[] boyaChicaItem) {
+        this.boyaChicaItem = boyaChicaItem;
+    }
+
+    public BoyaChicaItem[] getBoyaChicaItem() {
+        return boyaChicaItem;
+    }
+
+    public void setBoyaChicaItem(BoyaChicaItem[] boyaChicaItem) {
         this.boyaChicaItem = boyaChicaItem;
     }
 

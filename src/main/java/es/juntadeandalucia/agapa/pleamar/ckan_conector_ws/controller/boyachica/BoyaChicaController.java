@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/boyachica")
+@RequestMapping("/apiboyachica")
 public class BoyaChicaController {
 
     private BoyaChicaService boyaChicaService;
@@ -25,5 +25,10 @@ public class BoyaChicaController {
     @GetMapping("/")
     public ResponseEntity<String> holaMundo(@RequestParam String project, @RequestParam int id) throws JsonProcessingException {
         return new ResponseEntity<>(this.boyaChicaService.obtenerKmlBoyaChica(project, id), HttpStatus.OK);
+    }
+
+    @GetMapping("/boyachica/kml")
+    public ResponseEntity<String> boyasChicasKml() throws JsonProcessingException {
+        return new ResponseEntity<>(this.boyaChicaService.obtenerKmlBoyasChicas(), HttpStatus.OK);
     }
 }
