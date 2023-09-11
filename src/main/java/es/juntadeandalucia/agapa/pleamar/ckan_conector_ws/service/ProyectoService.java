@@ -39,10 +39,10 @@ public class ProyectoService {
         StringBuilder kml = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
         kml.append("<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n");
         kml.append("<Document>\n");
-        List<ProyectoItem> proyectosItem = this.proyectoService.getProyectosItem();
+        List<ProyectoItem> proyectosItem = this.getProyectosItem();
 
         for (ProyectoItem proyectoItem: proyectosItem){
-            Proyecto proyecto  = this.proyectoService.getProyecto(proyectoItem.getName());
+            Proyecto proyecto  = this.getProyecto(proyectoItem.getName());
             for(BoyaChicaItem boyaChicaItem : proyecto.getBoyaChicaItem()){
                 kml.append("<Placemark>\n");
                 //     kml.append("<description> Significant wave height (m): " + hm0

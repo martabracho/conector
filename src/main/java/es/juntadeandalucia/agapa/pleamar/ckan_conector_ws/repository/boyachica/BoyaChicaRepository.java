@@ -1,7 +1,9 @@
 package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.repository.boyachica;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.BoyaChica;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.Proyecto;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,8 +34,10 @@ public class    BoyaChicaRepository {
                 .queryParam("dataOnly")
                 .build()
         ).retrieve().bodyToMono(String.class).block();
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(jsonBoyaChica, BoyaChica.class);
+        ObjectMapper mapper = JsonMapper.builder()
+                .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
+                .build();
+        return mapper.readValue(jsonBoyaChica, BoyaChica.class);
     }
 
 

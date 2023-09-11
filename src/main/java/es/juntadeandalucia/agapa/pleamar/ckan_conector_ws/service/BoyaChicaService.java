@@ -2,10 +2,7 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.controller.boyachica.ProyectoController;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.BoyaChica;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.BoyaChicaItem;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.Proyecto;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.ProyectoItem;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.*;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.repository.boyachica.BoyaChicaRepository;
 import org.apache.commons.csv.CSVPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,4 +33,31 @@ public class BoyaChicaService {
     }
 
 
+    public StringWriter obtenerCsvBoyaChica(String codigoProyecto, int idBoya) throws IOException {
+        BoyaChica boyaChica = this.boyaChicaRepository.getBoyaChica(codigoProyecto,idBoya);
+        StringWriter sw = new StringWriter();
+        String[] HEADERS = { "Hm0", "Time"};
+
+        CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
+                .setHeader(HEADERS)
+                .build();
+
+
+        try (final CSVPrinter printer = new CSVPrinter(sw, csvFormat)) {
+            for (BoyaChicaRegistro boyaChicaRegistro : boyaChica.getData()) {
+
+                    try {
+                        printer.printRecord(boyaChicaRegistro.getHm0(),boyaChicaRegistro.getTime());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return sw;
+
+    }
 }

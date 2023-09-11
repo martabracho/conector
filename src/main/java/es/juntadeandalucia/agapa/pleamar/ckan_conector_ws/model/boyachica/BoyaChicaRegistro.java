@@ -9,9 +9,9 @@ public class BoyaChicaRegistro {
 
     public BoyaChicaRegistro() {}
 
-    public BoyaChicaRegistro(String time, String hm0) {
+    public BoyaChicaRegistro(String time, String Hm0) {
         this.time = time;
-        Hm0 = hm0;
+        this.Hm0 = Hm0;
     }
 
     public String getTime() {
