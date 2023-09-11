@@ -59,7 +59,7 @@ public class ProyectoController {
     @GetMapping("/csv")
     public ResponseEntity<String> boyasChicasCSV() throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=boyasChicas.csv" );
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=proyectos.csv" );
         // defining the custom Content-Type
         headers.set(HttpHeaders.CONTENT_TYPE, "text/csv");
 
