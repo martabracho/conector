@@ -1,16 +1,13 @@
-package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.repository.boyachica;
+package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.repository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.BoyaChica;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.Proyecto;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChica;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import java.util.List;
 
 @Repository
 public class    BoyaChicaRepository {

@@ -1,15 +1,11 @@
-package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.controller.boyachica;
+package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.controller;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.BoyaChica;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.BoyaChicaItem;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.Proyecto;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.ProyectoItem;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.service.BoyaChicaService;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.service.ProyectoService;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChica;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.ProyectoItem;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service.BoyaChicaService;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service.ProyectoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,8 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-import java.io.StringWriter;
 import java.util.List;
 
 @RestController

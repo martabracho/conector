@@ -1,20 +1,15 @@
-package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.controller.boyachica;
+package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.controller;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.service.BoyaChicaService;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service.BoyaChicaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Arrays;
 
 @RestController
     @RequestMapping("/apiboyachica")

@@ -1,11 +1,11 @@
 
-package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.service;
+package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.BoyaChicaItem;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.Proyecto;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.ProyectoItem;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.repository.boyachica.ProyectoRepository;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChicaItem;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.Proyecto;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.ProyectoItem;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.repository.ProyectoRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class ProyectoService {
