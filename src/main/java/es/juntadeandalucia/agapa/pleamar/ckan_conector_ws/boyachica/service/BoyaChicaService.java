@@ -3,7 +3,6 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChica;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChicaRegistro;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.model.boyachica.*;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.repository.BoyaChicaRepository;
 import org.apache.commons.csv.CSVPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
