@@ -53,7 +53,15 @@ public class ProyectoController {
 
     @GetMapping("/kml")
     public ResponseEntity<String> boyasChicasKml() throws JsonProcessingException {
-        return new ResponseEntity<>(this.proyectoService.obtenerKmlBoyasChicas(), HttpStatus.OK);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=boyas.kml" );
+        // defining the custom Content-Type
+        headers.set(HttpHeaders.CONTENT_TYPE, "application/vnd.google-earth.kml+xml");
+
+        return new ResponseEntity<>(
+                this.proyectoService.obtenerKmlBoyasChicas(),
+                headers,
+                HttpStatus.OK);
     }
 
     @GetMapping("/csv")

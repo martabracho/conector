@@ -60,4 +60,32 @@ public class BoyaChicaService {
         return sw;
 
     }
+
+    public String obtenerKmlBoyasChicas(String codigoProyecto, int idBoya) throws JsonProcessingException {
+
+        StringBuilder kml = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+        kml.append("<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n");
+        kml.append("<Document>\n");
+        kml.append("<Placemark>\n");
+
+        kml.append("<Point>\n");
+        kml.append("<coordinates>-6.42484,36.68705,0</coordinates>\n");
+        kml.append("</Point>\n");
+
+
+        kml.append("</Placemark>");
+
+        kml.append("</Document>\n");
+        kml.append("</kml>\n");
+        return kml.toString();
+
+
+                //     kml.append("<description> Significant wave height (m): " + hm0
+                //             + "<br/> Sea surface temperature (deg C): " + sst + "<br/> Time: " + tstr + "</description>\n");
+
+
+        }
+
+
+
 }
