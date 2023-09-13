@@ -1,0 +1,1 @@
+FROM harbor.agapa.es/base/agapa-springboot-17-jre:0.1.1.0
