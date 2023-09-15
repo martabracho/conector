@@ -28,7 +28,7 @@ public class BoyaGrandeController {
     }
 
 
-    @GetMapping("/device/{idBoya}")
+    @GetMapping("/boya/{idBoya}")
     public ResponseEntity<BoyaGrande> getUsuarios(@PathVariable long idBoya) throws IOException {
         return new ResponseEntity<>(this.boyaGrandeService.getBoya(idBoya), HttpStatus.OK);
     }
