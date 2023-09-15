@@ -1,6 +1,7 @@
 package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrande;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.repository.BoyaGrandeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ public class BoyaGrandeService {
         return this.boyaGrandeRepository.getToken();
     }
 
-    public String getUsuarios() throws JsonProcessingException {
+    public BoyaGrande getUsuarios() throws JsonProcessingException {
         String token = this.boyaGrandeRepository.getToken();
         return this.boyaGrandeRepository.getUsuarios(token);
 

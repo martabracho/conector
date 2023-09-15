@@ -3,6 +3,7 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.controller
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service.BoyaChicaService;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrande;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.service.BoyaGrandeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -32,8 +33,8 @@ public class BoyaGrandeController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<String> getUsuarios() throws IOException {
-        return new ResponseEntity<>(this.boyaGrandeService.getUsuarios().toString(), HttpStatus.OK);
+    public ResponseEntity<BoyaGrande> getUsuarios() throws IOException {
+        return new ResponseEntity<>(this.boyaGrandeService.getUsuarios(), HttpStatus.OK);
     }
 
 }

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChica;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.Proyecto;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrande;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.TokenRequest;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.TokenResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,13 +40,13 @@ public class BoyaGrandeRepository {
         return tokenResponse.getToken();
     }
 
-    public String getUsuarios(String token) {
+    public BoyaGrande getUsuarios(String token) {
 
 
         WebClient client = WebClient.create(url);
-        String jsonUsuarios = client.get().uri(uriBuilder -> uriBuilder.path(pathBase).path("/tracks/device/").path("2")
+        return client.get().uri(uriBuilder -> uriBuilder.path(pathBase).path("/tracks/device/").path("2")
                 .build()
-        ).header(HttpHeaders.AUTHORIZATION, "Bearer " + token).retrieve().bodyToMono(String.class).block();
-        return jsonUsuarios;
+        ).header(HttpHeaders.AUTHORIZATION, "Bearer " + token).retrieve().bodyToMono(BoyaGrande.class).block();
+
     }
 }
