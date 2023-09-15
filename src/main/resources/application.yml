@@ -21,4 +21,4 @@ spring:
       fail-fast: true
 
 server:
-  servlet.contextPath: /ckan-conector-ws
+  servlet.contextPath: /agenciaagrariaypesquera/pleamar/conectormarabierto
