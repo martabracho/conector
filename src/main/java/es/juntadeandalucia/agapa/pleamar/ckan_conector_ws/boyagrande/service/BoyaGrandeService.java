@@ -17,9 +17,9 @@ public class BoyaGrandeService {
         return this.boyaGrandeRepository.getToken();
     }
 
-    public BoyaGrande getUsuarios() throws JsonProcessingException {
-        String token = this.boyaGrandeRepository.getToken();
-        return this.boyaGrandeRepository.getUsuarios(token);
 
+    public BoyaGrande getBoya(long idBoya) throws JsonProcessingException {
+        String token = this.boyaGrandeRepository.getToken();
+        return this.boyaGrandeRepository.getBoya(token,idBoya);
     }
 }

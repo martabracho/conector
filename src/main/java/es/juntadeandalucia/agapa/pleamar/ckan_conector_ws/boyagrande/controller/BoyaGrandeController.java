@@ -27,14 +27,10 @@ public class BoyaGrandeController {
         this.boyaGrandeService = boyaGrandeService;
     }
 
-    @GetMapping("/token")
-    public ResponseEntity<String> getToken() throws IOException {
-        return new ResponseEntity<>(this.boyaGrandeService.getToken().toString(), HttpStatus.OK);
-    }
 
-    @GetMapping("/users")
-    public ResponseEntity<BoyaGrande> getUsuarios() throws IOException {
-        return new ResponseEntity<>(this.boyaGrandeService.getUsuarios(), HttpStatus.OK);
+    @GetMapping("/device/{idBoya}")
+    public ResponseEntity<BoyaGrande> getUsuarios(@PathVariable long idBoya) throws IOException {
+        return new ResponseEntity<>(this.boyaGrandeService.getBoya(idBoya), HttpStatus.OK);
     }
 
 }

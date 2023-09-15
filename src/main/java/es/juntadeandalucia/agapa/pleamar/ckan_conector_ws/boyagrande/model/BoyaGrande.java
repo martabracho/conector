@@ -7,6 +7,7 @@ public class BoyaGrande {
     private String id;
     private String latitude;
     private String longitude;
+    private BoyaGrandeData [] data;
 
     public String getId() {
         return id;
@@ -30,5 +31,13 @@ public class BoyaGrande {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public BoyaGrandeData[] getData() {
+        return data;
+    }
+
+    public void setData(BoyaGrandeData[] data) {
+        this.data = data;
     }
 }
