@@ -7,7 +7,8 @@ public class BoyaChicaRegistro {
     private String time;
     private String Hm0;
 
-    public BoyaChicaRegistro() {}
+    public BoyaChicaRegistro() {
+    }
 
     public BoyaChicaRegistro(String time, String Hm0) {
         this.time = time;

@@ -7,9 +7,10 @@ import java.util.Arrays;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Proyecto {
 
-  private BoyaChicaItem [] boyaChicaItem;
+    private BoyaChicaItem[] boyaChicaItem;
 
-    public Proyecto(){}
+    public Proyecto() {
+    }
 
     public Proyecto(BoyaChicaItem[] boyaChicaItem) {
         this.boyaChicaItem = boyaChicaItem;
@@ -25,8 +26,6 @@ public class Proyecto {
 
     @Override
     public String toString() {
-        return "Proyecto{" +
-                "boyaChicaItem=" + Arrays.toString(boyaChicaItem) +
-                '}';
+        return "Proyecto{" + "boyaChicaItem=" + Arrays.toString(boyaChicaItem) + '}';
     }
 }

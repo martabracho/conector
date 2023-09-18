@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Repository
-public class    BoyaChicaRepository {
+public class BoyaChicaRepository {
 
     @Value("${boyaschicas.api.url}")
     private String url;
@@ -21,19 +21,13 @@ public class    BoyaChicaRepository {
     @Value("${boyaschicas.api.password}")
     private String password;
 
-    public BoyaChica    getBoyaChica(String project, int idBoya) throws JsonProcessingException {
+    public BoyaChica getBoyaChica(String project, int idBoya) throws JsonProcessingException {
         WebClient client = WebClient.create(url);
         String jsonBoyaChica = client.get().uri(uriBuilder -> uriBuilder.path(pathBase)
-                .queryParam("username", usuario)
-                .queryParam("key", password)
-                .queryParam("project", project)
-                .queryParam("station",idBoya)
-                .queryParam("dataOnly")
-                .build()
-        ).retrieve().bodyToMono(String.class).block();
-        ObjectMapper mapper = JsonMapper.builder()
-                .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
-                .build();
+                .queryParam("username", usuario).queryParam("key", password)
+                .queryParam("project", project).queryParam("station", idBoya)
+                .queryParam("dataOnly").build()).retrieve().bodyToMono(String.class).block();
+        ObjectMapper mapper = JsonMapper.builder().configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true).build();
         return mapper.readValue(jsonBoyaChica, BoyaChica.class);
     }
 

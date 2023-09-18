@@ -12,30 +12,29 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 import org.apache.commons.csv.CSVFormat;
+
 @Component
 public class BoyaChicaService {
 
-    private ProyectoService proyectoService;
-    private BoyaChicaRepository boyaChicaRepository;
-
-
+    private final ProyectoService proyectoService;
+    private final BoyaChicaRepository boyaChicaRepository;
 
     @Autowired
-    public BoyaChicaService (BoyaChicaRepository boyaChicaRepository, ProyectoService proyectoService ){
+    public BoyaChicaService(BoyaChicaRepository boyaChicaRepository, ProyectoService proyectoService) {
         this.boyaChicaRepository = boyaChicaRepository;
         this.proyectoService = proyectoService;
     }
 
 
     public BoyaChica getBoya(String codigoProyecto, int idBoya) throws JsonProcessingException {
-        return this.boyaChicaRepository.getBoyaChica(codigoProyecto,idBoya);
+        return this.boyaChicaRepository.getBoyaChica(codigoProyecto, idBoya);
     }
 
 
     public StringWriter obtenerCsvBoyaChica(String codigoProyecto, int idBoya) throws IOException {
-        BoyaChica boyaChica = this.boyaChicaRepository.getBoyaChica(codigoProyecto,idBoya);
+        BoyaChica boyaChica = this.boyaChicaRepository.getBoyaChica(codigoProyecto, idBoya);
         StringWriter sw = new StringWriter();
-        String[] HEADERS = { "Hm0", "Time"};
+        String[] HEADERS = {"Hm0", "Time"};
 
         CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
                 .setHeader(HEADERS)
@@ -45,14 +44,13 @@ public class BoyaChicaService {
         try (final CSVPrinter printer = new CSVPrinter(sw, csvFormat)) {
             for (BoyaChicaRegistro boyaChicaRegistro : boyaChica.getData()) {
 
-                    try {
-                        printer.printRecord(boyaChicaRegistro.getHm0(),boyaChicaRegistro.getTime());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    printer.printRecord(boyaChicaRegistro.getHm0(), boyaChicaRegistro.getTime());
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
@@ -62,29 +60,24 @@ public class BoyaChicaService {
 
     public String obtenerKmlBoyasChicas(String codigoProyecto, int idBoya) throws JsonProcessingException {
 
-        StringBuilder kml = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-        kml.append("<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n");
-        kml.append("<Document>\n");
-        kml.append("<Placemark>\n");
 
-        kml.append("<Point>\n");
-        kml.append("<coordinates>-6.42484,36.68705,0</coordinates>\n");
-        kml.append("</Point>\n");
-
-
-        kml.append("</Placemark>");
-
-        kml.append("</Document>\n");
-        kml.append("</kml>\n");
-        return kml.toString();
+        String kml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n" +
+                "<Document>\n" +
+                "<Placemark>\n" +
+                "<Point>\n" +
+                "<coordinates>-6.42484,36.68705,0</coordinates>\n" +
+                "</Point>\n" +
+                "</Placemark>" +
+                "</Document>\n" +
+                "</kml>\n";
+        return kml;
 
 
-                //     kml.append("<description> Significant wave height (m): " + hm0
-                //             + "<br/> Sea surface temperature (deg C): " + sst + "<br/> Time: " + tstr + "</description>\n");
+        //     kml.append("<description> Significant wave height (m): " + hm0
+        //             + "<br/> Sea surface temperature (deg C): " + sst + "<br/> Time: " + tstr + "</description>\n");
 
 
-        }
-
+    }
 
 
 }

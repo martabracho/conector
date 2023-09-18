@@ -21,8 +21,8 @@ import java.util.List;
 @RequestMapping("/apiboyachica/proyecto")
 public class ProyectoController {
 
-    private ProyectoService proyectoService;
-    private BoyaChicaService boyaChicaService;
+    private final ProyectoService proyectoService;
+    private final BoyaChicaService boyaChicaService;
 
     @Autowired
     public ProyectoController(ProyectoService proyectoService, BoyaChicaService boyaChicaService) {
@@ -41,37 +41,24 @@ public class ProyectoController {
     }
 
     @GetMapping("/{codigoProyecto}/{idBoya}")
-    public ResponseEntity<BoyaChica> getProyecto(@PathVariable String codigoProyecto,@PathVariable int idBoya) throws JsonProcessingException {
-        return new ResponseEntity<>(this.boyaChicaService.getBoya(codigoProyecto,idBoya), HttpStatus.OK);
+    public ResponseEntity<BoyaChica> getProyecto(@PathVariable String codigoProyecto, @PathVariable int idBoya) throws JsonProcessingException {
+        return new ResponseEntity<>(this.boyaChicaService.getBoya(codigoProyecto, idBoya), HttpStatus.OK);
     }
 
     @GetMapping("/kml")
     public ResponseEntity<String> boyasChicasKml() throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=boyas.kml" );
-        // defining the custom Content-Type
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=boyas.kml");
         headers.set(HttpHeaders.CONTENT_TYPE, "application/vnd.google-earth.kml+xml");
-
-        return new ResponseEntity<>(
-                this.proyectoService.obtenerKmlBoyasChicas(),
-                headers,
-                HttpStatus.OK);
+        return new ResponseEntity<>(this.proyectoService.obtenerKmlBoyasChicas(), headers, HttpStatus.OK);
     }
 
     @GetMapping("/csv")
     public ResponseEntity<String> boyasChicasCSV() throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=proyectos.csv" );
-        // defining the custom Content-Type
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=proyectos.csv");
         headers.set(HttpHeaders.CONTENT_TYPE, "text/csv");
-
-        return new ResponseEntity<>(
-                this.proyectoService.obtenerCsvBoyasChicas().toString().trim(),
-                headers,
-                HttpStatus.OK
-        );
+        return new ResponseEntity<>(this.proyectoService.obtenerCsvBoyasChicas().toString().trim(), headers, HttpStatus.OK);
     }
-
-
 
 }

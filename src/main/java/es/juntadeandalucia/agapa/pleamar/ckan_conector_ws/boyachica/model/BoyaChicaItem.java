@@ -52,14 +52,5 @@ public class BoyaChicaItem {
     public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
-
-    @Override
-    public String toString() {
-        return "Proyecto{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                ", latitude='" + latitude + '\'' +
-                ", longitude='" + longitude + '\'' +
-                '}';
-    }
+    
 }

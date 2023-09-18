@@ -27,15 +27,15 @@ public class ProyectoRepository {
     public List<Proyecto> getBoyaChica(String project, int id) throws JsonProcessingException {
         List<Proyecto> proyecto = null;
         WebClient client = WebClient.create(url);
-        String jsonBoyaChica = client.get().uri( uriBuilder -> uriBuilder.path(pathBase)
-                                                    .queryParam("username", usuario)
-                                                    .queryParam("key", "password")
-                                                    .queryParam("project",project)
-                        .build()
+        String jsonBoyaChica = client.get().uri(uriBuilder -> uriBuilder.path(pathBase)
+                .queryParam("username", usuario)
+                .queryParam("key", "password")
+                .queryParam("project", project)
+                .build()
 
-                                                ).retrieve().bodyToMono(String.class).block();
+        ).retrieve().bodyToMono(String.class).block();
         ObjectMapper objectMapper = new ObjectMapper();
-        Proyecto[] proyectos = objectMapper.readValue(jsonBoyaChica, Proyecto[].class );
+        Proyecto[] proyectos = objectMapper.readValue(jsonBoyaChica, Proyecto[].class);
         List<Proyecto> listaBoyasChicas = Arrays.asList(proyectos);
         return listaBoyasChicas;
     }
@@ -44,27 +44,27 @@ public class ProyectoRepository {
 
         List<Proyecto> proyecto = null;
         WebClient client = WebClient.create(url);
-        String jsonProyectosItem = client.get().uri( uriBuilder -> uriBuilder.path(pathBase)
+        String jsonProyectosItem = client.get().uri(uriBuilder -> uriBuilder.path(pathBase)
                 .queryParam("username", usuario)
                 .queryParam("key", password)
                 .build()
         ).retrieve().bodyToMono(String.class).block();
         ObjectMapper objectMapper = new ObjectMapper();
-        ProyectoItem []  proyectosItem = objectMapper.readValue(jsonProyectosItem,ProyectoItem[].class );
+        ProyectoItem[] proyectosItem = objectMapper.readValue(jsonProyectosItem, ProyectoItem[].class);
         return Arrays.asList(proyectosItem);
     }
 
 
     public Proyecto getProyecto(String codigoProyecto) throws JsonProcessingException {
         WebClient client = WebClient.create(url);
-        String jsonProyecto = client.get().uri( uriBuilder -> uriBuilder.path(pathBase)
+        String jsonProyecto = client.get().uri(uriBuilder -> uriBuilder.path(pathBase)
                 .queryParam("username", usuario)
                 .queryParam("key", password)
                 .queryParam("project", codigoProyecto)
                 .build()
         ).retrieve().bodyToMono(String.class).block();
         ObjectMapper objectMapper = new ObjectMapper();
-        BoyaChicaItem[] listaBoyasChicas = objectMapper.readValue(jsonProyecto, BoyaChicaItem[].class );
+        BoyaChicaItem[] listaBoyasChicas = objectMapper.readValue(jsonProyecto, BoyaChicaItem[].class);
         return new Proyecto(listaBoyasChicas);
     }
 }

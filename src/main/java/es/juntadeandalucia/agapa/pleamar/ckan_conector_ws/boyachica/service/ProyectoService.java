@@ -1,4 +1,3 @@
-
 package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -18,7 +17,7 @@ import java.util.List;
 @Component
 public class ProyectoService {
 
-    private ProyectoRepository proyectoRepository;
+    private final ProyectoRepository proyectoRepository;
 
     @Autowired
     public ProyectoService(ProyectoRepository proyectoRepository) {
@@ -40,9 +39,9 @@ public class ProyectoService {
         kml.append("<Document>\n");
         List<ProyectoItem> proyectosItem = this.getProyectosItem();
 
-        for (ProyectoItem proyectoItem: proyectosItem){
-            Proyecto proyecto  = this.getProyecto(proyectoItem.getName());
-            for(BoyaChicaItem boyaChicaItem : proyecto.getBoyaChicaItem()){
+        for (ProyectoItem proyectoItem : proyectosItem) {
+            Proyecto proyecto = this.getProyecto(proyectoItem.getName());
+            for (BoyaChicaItem boyaChicaItem : proyecto.getBoyaChicaItem()) {
                 kml.append("<Placemark>\n");
                 //     kml.append("<description> Significant wave height (m): " + hm0
                 //             + "<br/> Sea surface temperature (deg C): " + sst + "<br/> Time: " + tstr + "</description>\n");
@@ -62,7 +61,7 @@ public class ProyectoService {
     public StringWriter obtenerCsvBoyasChicas() throws JsonProcessingException {
 
         StringWriter sw = new StringWriter();
-        String[] HEADERS = { "Latitud", "Longitud"};
+        String[] HEADERS = {"Latitud", "Longitud"};
 
         CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
                 .setHeader(HEADERS)
