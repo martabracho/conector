@@ -4,6 +4,7 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.controller
 import com.fasterxml.jackson.core.JsonProcessingException;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service.BoyaChicaService;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrande;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrandeTracks;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.service.BoyaGrandeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -28,9 +29,15 @@ public class BoyaGrandeController {
     }
 
 
-    @GetMapping("/boya/{idBoya}")
-    public ResponseEntity<BoyaGrande> getUsuarios(@PathVariable long idBoya) throws IOException {
-        return new ResponseEntity<>(this.boyaGrandeService.getBoya(idBoya), HttpStatus.OK);
+    @GetMapping("/boya/{idBoya}/ultimoTrack")
+    public ResponseEntity<BoyaGrande> getBoyaUltimoTrack(@PathVariable long idBoya) throws IOException {
+        return new ResponseEntity<>(this.boyaGrandeService.getBoyaUltimoTrack(idBoya), HttpStatus.OK);
     }
+
+    @GetMapping("/boya/{idBoya}/tracks")
+    public ResponseEntity<BoyaGrandeTracks> getBoyaTracks(@PathVariable long idBoya) throws IOException {
+        return new ResponseEntity<>(this.boyaGrandeService.getBoyaTracks(idBoya), HttpStatus.OK);
+    }
+
 
 }
