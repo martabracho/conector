@@ -31,7 +31,7 @@ public class BoyaChicaService {
     }
 
 
-    public StringWriter obtenerCsvBoyaChica(String codigoProyecto, int idBoya) throws IOException {
+    public StringWriter obtenerCsvBoyaChica(String codigoProyecto, int idBoya) throws JsonProcessingException {
         BoyaChica boyaChica = this.boyaChicaRepository.getBoyaChica(codigoProyecto, idBoya);
         StringWriter sw = new StringWriter();
         String[] HEADERS = {"Hm0", "Time"};
@@ -40,27 +40,17 @@ public class BoyaChicaService {
                 .setHeader(HEADERS)
                 .build();
 
-
         try (final CSVPrinter printer = new CSVPrinter(sw, csvFormat)) {
             for (BoyaChicaRegistro boyaChicaRegistro : boyaChica.getData()) {
-
-                try {
                     printer.printRecord(boyaChicaRegistro.getHm0(), boyaChicaRegistro.getTime());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         return sw;
-
     }
 
     public String obtenerKmlBoyasChicas(String codigoProyecto, int idBoya) throws JsonProcessingException {
-
-
         String kml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n" +
                 "<Document>\n" +
                 "<Placemark>\n" +
@@ -71,12 +61,6 @@ public class BoyaChicaService {
                 "</Document>\n" +
                 "</kml>\n";
         return kml;
-
-
-        //     kml.append("<description> Significant wave height (m): " + hm0
-        //             + "<br/> Sea surface temperature (deg C): " + sst + "<br/> Time: " + tstr + "</description>\n");
-
-
     }
 
 

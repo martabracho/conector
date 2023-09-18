@@ -43,16 +43,12 @@ public class ProyectoService {
             Proyecto proyecto = this.getProyecto(proyectoItem.getName());
             for (BoyaChicaItem boyaChicaItem : proyecto.getBoyaChicaItem()) {
                 kml.append("<Placemark>\n");
-                //     kml.append("<description> Significant wave height (m): " + hm0
-                //             + "<br/> Sea surface temperature (deg C): " + sst + "<br/> Time: " + tstr + "</description>\n");
                 kml.append("<Point>\n");
                 kml.append("<coordinates>" + boyaChicaItem.getLongitude() + "," + boyaChicaItem.getLatitude() + "</coordinates>\n");
                 kml.append("</Point>\n");
                 kml.append("</Placemark>");
             }
         }
-
-
         kml.append("</Document>\n");
         kml.append("</kml>\n");
         return kml.toString();
@@ -73,19 +69,12 @@ public class ProyectoService {
             for (ProyectoItem proyectoItem : proyectosItem) {
                 Proyecto proyecto = this.getProyecto(proyectoItem.getName());
                 for (BoyaChicaItem boyaChicaItem : proyecto.getBoyaChicaItem()) {
-
-                    try {
                         printer.printRecord(boyaChicaItem.getLatitude(), boyaChicaItem.getLongitude());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         return sw;
-
     }
 }

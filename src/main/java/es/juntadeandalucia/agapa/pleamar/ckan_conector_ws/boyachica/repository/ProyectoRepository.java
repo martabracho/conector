@@ -24,22 +24,6 @@ public class ProyectoRepository {
     @Value("${boyaschicas.api.password}")
     private String password;
 
-    public List<Proyecto> getBoyaChica(String project, int id) throws JsonProcessingException {
-        List<Proyecto> proyecto = null;
-        WebClient client = WebClient.create(url);
-        String jsonBoyaChica = client.get().uri(uriBuilder -> uriBuilder.path(pathBase)
-                .queryParam("username", usuario)
-                .queryParam("key", "password")
-                .queryParam("project", project)
-                .build()
-
-        ).retrieve().bodyToMono(String.class).block();
-        ObjectMapper objectMapper = new ObjectMapper();
-        Proyecto[] proyectos = objectMapper.readValue(jsonBoyaChica, Proyecto[].class);
-        List<Proyecto> listaBoyasChicas = Arrays.asList(proyectos);
-        return listaBoyasChicas;
-    }
-
     public List<ProyectoItem> getProyectosItem() throws JsonProcessingException {
 
         List<Proyecto> proyecto = null;
