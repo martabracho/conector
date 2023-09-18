@@ -10,10 +10,13 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class BoyaGrandeService {
 
-    private BoyaGrandeRepository boyaGrandeRepository;
+    private final BoyaGrandeRepository boyaGrandeRepository;
 
     @Autowired
-    public BoyaGrandeService(BoyaGrandeRepository boyaGrandeRepository){this.boyaGrandeRepository = boyaGrandeRepository;}
+    public BoyaGrandeService(BoyaGrandeRepository boyaGrandeRepository) {
+        this.boyaGrandeRepository = boyaGrandeRepository;
+    }
+
     public String getToken() throws JsonProcessingException {
         return this.boyaGrandeRepository.getToken();
     }
@@ -21,11 +24,11 @@ public class BoyaGrandeService {
 
     public BoyaGrande getBoyaUltimoTrack(long idBoya) throws JsonProcessingException {
         String token = this.boyaGrandeRepository.getToken();
-        return this.boyaGrandeRepository.getBoyaUltimoTrack(token,idBoya);
+        return this.boyaGrandeRepository.getBoyaUltimoTrack(token, idBoya);
     }
 
     public BoyaGrandeTracks getBoyaTracks(long idBoya) throws JsonProcessingException {
         String token = this.boyaGrandeRepository.getToken();
-        return this.boyaGrandeRepository.getBoyaTracks(token,idBoya);
+        return this.boyaGrandeRepository.getBoyaTracks(token, idBoya);
     }
 }

@@ -7,7 +7,7 @@ public class BoyaGrande {
     private String id;
     private String latitude;
     private String longitude;
-    private BoyaGrandeData [] data;
+    private BoyaGrandeData[] data;
 
     public String getId() {
         return id;
