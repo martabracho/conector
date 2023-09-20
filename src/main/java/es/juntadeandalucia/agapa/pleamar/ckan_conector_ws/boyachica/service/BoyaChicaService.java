@@ -16,13 +16,11 @@ import org.apache.commons.csv.CSVFormat;
 @Component
 public class BoyaChicaService {
 
-    private final ProyectoService proyectoService;
     private final BoyaChicaRepository boyaChicaRepository;
 
     @Autowired
-    public BoyaChicaService(BoyaChicaRepository boyaChicaRepository, ProyectoService proyectoService) {
+    public BoyaChicaService(BoyaChicaRepository boyaChicaRepository) {
         this.boyaChicaRepository = boyaChicaRepository;
-        this.proyectoService = proyectoService;
     }
 
 

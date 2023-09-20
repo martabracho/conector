@@ -1,7 +1,9 @@
 package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChica;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChicaItem;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChicaRegistro;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.Proyecto;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.ProyectoItem;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.repository.ProyectoRepository;
@@ -19,9 +21,12 @@ public class ProyectoService {
 
     private final ProyectoRepository proyectoRepository;
 
+    private final BoyaChicaService boyaChicaService;
+
     @Autowired
-    public ProyectoService(ProyectoRepository proyectoRepository) {
+    public ProyectoService(ProyectoRepository proyectoRepository, BoyaChicaService boyaChicaService) {
         this.proyectoRepository = proyectoRepository;
+        this.boyaChicaService = boyaChicaService;
     }
 
     public List<ProyectoItem> getProyectosItem() throws JsonProcessingException {
@@ -42,7 +47,18 @@ public class ProyectoService {
         for (ProyectoItem proyectoItem : proyectosItem) {
             Proyecto proyecto = this.getProyecto(proyectoItem.getName());
             for (BoyaChicaItem boyaChicaItem : proyecto.getBoyaChicaItem()) {
+                BoyaChica boyaChica = this.boyaChicaService.getBoya(proyectoItem.getName(),boyaChicaItem.getId());
                 kml.append("<Placemark>\n");
+                kml.append("<name>").append(boyaChicaItem.getName()).append("</name>");
+                if (boyaChica.getData().length>0) {
+                    kml.append("<description>");
+                    BoyaChicaRegistro registro = boyaChica.getData()[0];
+                    kml.append(" Hm0:");
+                    kml.append(registro.getHm0());
+                    kml.append(" time: ");
+                    kml.append(registro.getTime());
+                    kml.append("</description>");
+                }
                 kml.append("<Point>\n");
                 kml.append("<coordinates>" + boyaChicaItem.getLongitude() + "," + boyaChicaItem.getLatitude() + "</coordinates>\n");
                 kml.append("</Point>\n");

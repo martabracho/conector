@@ -33,12 +33,4 @@ public class BoyaChicaController {
         return new ResponseEntity<>(this.boyaChicaService.obtenerCsvBoyaChica(codigoProyecto, idBoya).toString().trim(), headers, HttpStatus.OK);
     }
 
-    @GetMapping("/proyecto/{codigoProyecto}/boyachica/{idBoya}/kml")
-    public ResponseEntity<String> boyasChicasKml(@PathVariable String codigoProyecto, @PathVariable int idBoya) throws JsonProcessingException {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=boyas.kml");
-        headers.set(HttpHeaders.CONTENT_TYPE, "application/vnd.google-earth.kml+xml");
-        return new ResponseEntity<>(this.boyaChicaService.obtenerKmlBoyasChicas(codigoProyecto, idBoya), headers, HttpStatus.OK);
-    }
-
 }
