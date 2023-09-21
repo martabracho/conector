@@ -42,7 +42,7 @@ public class ProyectoController {
 
     @GetMapping("/{codigoProyecto}/{idBoya}")
     public ResponseEntity<BoyaChica> getProyecto(@PathVariable String codigoProyecto, @PathVariable int idBoya) throws JsonProcessingException {
-        return new ResponseEntity<>(this.boyaChicaService.getBoya(codigoProyecto, idBoya), HttpStatus.OK);
+        return new ResponseEntity<>(this.boyaChicaService.getBoya(codigoProyecto, idBoya,""), HttpStatus.OK);
     }
 
     @GetMapping("/kml")
@@ -59,6 +59,13 @@ public class ProyectoController {
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=proyectos.csv");
         headers.set(HttpHeaders.CONTENT_TYPE, "text/csv");
         return new ResponseEntity<>(this.proyectoService.obtenerCsvBoyasChicas().toString().trim(), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/json")
+    public ResponseEntity<List<BoyaChica>> boyasChicasJSON() throws JsonProcessingException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_TYPE, "application/json");
+        return new ResponseEntity<>(this.proyectoService.obtenerJsonBoyasChicas(), headers, HttpStatus.OK);
     }
 
 }

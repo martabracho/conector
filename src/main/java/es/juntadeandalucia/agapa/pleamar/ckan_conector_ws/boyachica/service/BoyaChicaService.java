@@ -24,8 +24,10 @@ public class BoyaChicaService {
     }
 
 
-    public BoyaChica getBoya(String codigoProyecto, int idBoya) throws JsonProcessingException {
-        return this.boyaChicaRepository.getBoyaChica(codigoProyecto, idBoya);
+    public BoyaChica getBoya(String codigoProyecto, int idBoya, String name) throws JsonProcessingException {
+        BoyaChica boyaChica = this.boyaChicaRepository.getBoyaChica(codigoProyecto, idBoya);
+        boyaChica.setName(name);
+        return boyaChica;
     }
 
 

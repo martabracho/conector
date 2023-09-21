@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -47,16 +48,12 @@ public class ProyectoService {
         for (ProyectoItem proyectoItem : proyectosItem) {
             Proyecto proyecto = this.getProyecto(proyectoItem.getName());
             for (BoyaChicaItem boyaChicaItem : proyecto.getBoyaChicaItem()) {
-                BoyaChica boyaChica = this.boyaChicaService.getBoya(proyectoItem.getName(),boyaChicaItem.getId());
+                BoyaChica boyaChica = this.boyaChicaService.getBoya(proyectoItem.getName(),boyaChicaItem.getId(),boyaChicaItem.getName());
                 kml.append("<Placemark>\n");
                 kml.append("<name>").append(boyaChicaItem.getName()).append("</name>");
                 if (boyaChica.getData().length>0) {
                     kml.append("<description>");
-                    BoyaChicaRegistro registro = boyaChica.getData()[0];
-                    kml.append(" Hm0:");
-                    kml.append(registro.getHm0());
-                    kml.append(" time: ");
-                    kml.append(registro.getTime());
+                    kml.append(boyaChica.getData()[0].toString());
                     kml.append("</description>");
                 }
                 kml.append("<Point>\n");
@@ -92,5 +89,17 @@ public class ProyectoService {
             throw new RuntimeException(e);
         }
         return sw;
+    }
+
+    public List<BoyaChica> obtenerJsonBoyasChicas() throws JsonProcessingException {
+
+        List<BoyaChica> listaBoyaChica = new ArrayList<>();
+        for (ProyectoItem proyectoItem : this.getProyectosItem()) {
+            Proyecto proyecto = this.getProyecto(proyectoItem.getName());
+            for (BoyaChicaItem boyaChicaItem : proyecto.getBoyaChicaItem()) {
+                listaBoyaChica.add(this.boyaChicaService.getBoya(proyectoItem.getName(),boyaChicaItem.getId(), boyaChicaItem.getName()));
+            }
+        }
+        return listaBoyaChica;
     }
 }
