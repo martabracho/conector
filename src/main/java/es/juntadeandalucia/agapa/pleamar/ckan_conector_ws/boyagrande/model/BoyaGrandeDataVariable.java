@@ -31,4 +31,13 @@ public class BoyaGrandeDataVariable {
     public void setUnit(String unit) {
         this.unit = unit;
     }
+
+    @Override
+    public String toString() {
+        return "BoyaGrandeDataVariable{" +
+                "code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", unit='" + unit + '\'' +
+                '}';
+    }
 }

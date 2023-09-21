@@ -5,11 +5,14 @@ import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaCh
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.Proyecto;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.ProyectoItem;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrande;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrandeData;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrandeTracks;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.repository.BoyaGrandeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -55,17 +58,11 @@ public class BoyaGrandeService {
 
         kml.append("<Placemark>\n");
         kml.append("<name>").append(name).append("</name>");
-        kml.append("<description>")
-                .append("1espacio para meter contenido <br /> nueva linea contenido")
-                .append("2espacio para meter contenido <br /> nueva linea contenido")
-                .append("3espacio para meter contenido <br /> nueva linea contenido")
-                .append("4espacio para meter contenido <br /> nueva linea contenido")
-                .append("5espacio para meter contenido <br /> nueva linea contenido")
-                .append("6espacio para meter contenido <br /> nueva linea contenido")
-                .append("7espacio para meter contenido <br /> nueva linea contenido")
-                .append("8espacio para meter contenido <br /> nueva linea contenido")
-                .append(" https://ws229.juntadeandalucia.es/agenciaagrariaypesquera/pleamar/marabierto/dataset/estaciones-oceanograficas-agapa/resource/c621456e-dbd5-45b1-9c1c-6d0c29bd900a ")
-                .append("</description>");
+        kml.append("<description>");
+        for(BoyaGrandeData data : boyaGrande.getData()){
+            kml.append(data.toString());
+        }
+        kml.append("</description>");
         kml.append("<Point>\n");
         kml.append("<coordinates>" + boyaGrande.getLongitude() + "," + boyaGrande.getLatitude() + "</coordinates>\n");
         kml.append("</Point>\n");

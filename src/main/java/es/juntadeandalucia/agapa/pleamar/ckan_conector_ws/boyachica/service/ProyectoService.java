@@ -102,4 +102,13 @@ public class ProyectoService {
         }
         return listaBoyaChica;
     }
+
+    public List<BoyaChica> obtenerJsonBoyasChicas(String codigoProyecto) throws JsonProcessingException {
+        List<BoyaChica> listaBoyaChica = new ArrayList<>();
+        Proyecto proyecto = this.getProyecto(codigoProyecto);
+            for (BoyaChicaItem boyaChicaItem : proyecto.getBoyaChicaItem()) {
+                listaBoyaChica.add(this.boyaChicaService.getBoya(codigoProyecto,boyaChicaItem.getId(), boyaChicaItem.getName()));
+            }
+        return listaBoyaChica;
+    }
 }

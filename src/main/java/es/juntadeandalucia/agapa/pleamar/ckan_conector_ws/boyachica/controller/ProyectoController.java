@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -66,6 +67,13 @@ public class ProyectoController {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_TYPE, "application/json");
         return new ResponseEntity<>(this.proyectoService.obtenerJsonBoyasChicas(), headers, HttpStatus.OK);
+    }
+    @GetMapping("/{codigoProyecto}/json")
+    public ResponseEntity<List<BoyaChica>> boyasChicasProyectoJSON(@PathVariable String codigoProyecto) throws JsonProcessingException {
+        List<BoyaChica> listaBoyaChica = new ArrayList<>();
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_TYPE, "application/json");
+        return new ResponseEntity<>(this.proyectoService.obtenerJsonBoyasChicas(codigoProyecto), headers, HttpStatus.OK);
     }
 
 }

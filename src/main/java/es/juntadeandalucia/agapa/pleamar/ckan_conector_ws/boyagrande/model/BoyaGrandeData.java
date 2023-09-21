@@ -31,4 +31,13 @@ public class BoyaGrandeData {
     public void setValue(String value) {
         this.value = value;
     }
+
+    @Override
+    public String toString() {
+        return "BoyaGrandeData{" +
+                "id='" + id + '\'' +
+                ", variable=" + variable +
+                ", value='" + value + '\'' +
+                '}';
+    }
 }
