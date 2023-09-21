@@ -26,7 +26,7 @@ public class BoyaChicaRepository {
         String jsonBoyaChica = client.get().uri(uriBuilder -> uriBuilder.path(pathBase)
                 .queryParam("username", usuario).queryParam("key", password)
                 .queryParam("project", project).queryParam("station", idBoya)
-                .queryParam("dataOnly").build()).retrieve().bodyToMono(String.class).block();
+                .queryParam("dataOnly").queryParam("tz","local").build()).retrieve().bodyToMono(String.class).block();
         ObjectMapper mapper = JsonMapper.builder().configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true).build();
         BoyaChica boyaChica = mapper.readValue(jsonBoyaChica, BoyaChica.class);
         return boyaChica;
