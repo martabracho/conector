@@ -2,6 +2,7 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.controller;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChica;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service.BoyaChicaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -25,12 +26,11 @@ public class BoyaChicaController {
         this.boyaChicaService = boyaChicaService;
     }
 
-    @GetMapping("/proyecto/{codigoProyecto}/boyachica/{idBoya}/csv")
-    public ResponseEntity<String> boyasChicasCSV(@PathVariable String codigoProyecto, @PathVariable int idBoya) throws IOException {
+    @GetMapping("/proyecto/{codigoProyecto}/boyachica/{idBoya}")
+    public ResponseEntity<BoyaChica> boyasChicasCSV(@PathVariable String codigoProyecto, @PathVariable int idBoya) throws IOException {
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=boyachica.csv");
-        headers.set(HttpHeaders.CONTENT_TYPE, "text/csv");
-        return new ResponseEntity<>(this.boyaChicaService.obtenerCsvBoyaChica(codigoProyecto, idBoya).toString().trim(), headers, HttpStatus.OK);
+        headers.set(HttpHeaders.CONTENT_TYPE, "application/json");
+        return new ResponseEntity<BoyaChica>(this.boyaChicaService.getBoya(codigoProyecto, idBoya, ""), headers, HttpStatus.OK);
     }
 
 }
