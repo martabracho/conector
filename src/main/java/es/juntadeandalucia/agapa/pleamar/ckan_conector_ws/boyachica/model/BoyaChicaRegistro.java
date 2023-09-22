@@ -304,8 +304,9 @@ public class BoyaChicaRegistro {
                 ", Dirsw='" + Dirsw + '\'' +
                 ", Sigp='" + Sigp + '\'' +
                 ", Sigm='" + Sigm + '\'' +
-
-
+                ", Puu='" + Puu + '\'' +
+                ", lat='" + lat + '\'' +
+                ", lon='" + lon + '\'' +
                 ", sst='" + sst + '\'' +
                 ", VBAT='" + VBAT + '\'' +
                 ", VSOL='" + VSOL + '\'' +
@@ -323,9 +324,7 @@ public class BoyaChicaRegistro {
 
     public String toStringFormatoKML() {
         StringBuilder kml = new StringBuilder("<description>");
-        return "BoyaChicaRegistro{" +
-                "time='" + time + '\'' +
-                ", Altura de ola significativa (m)='" + Hm0 + '\'' +
+        return  "Altura de ola significativa (m)='" + Hm0 + '\'' +
                 ", Altura máxima de ola (m)='" + Hmax + '\'' +
                 ", Altura de las olas del oleaje (m)='" + Hsw + '\'' +
                 ", Periodo pico de onda (s)='" + Tp + '\'' +
@@ -353,8 +352,7 @@ public class BoyaChicaRegistro {
                 ", Tecnología de acceso a radio celular (-)='" + RAT + '\'' +
                 ", Operador='" + oper + '\'' +
                 ", Banda operador movil='" + source + '\'' +
-                ", invalid='" + invalid + '\'' +
-                ", tstr='" + tstr + '\'' +
-                '}';
+                ", Invalido='" + invalid + '\'' +
+                ", Fecha ='" + tstr + '\'';
     }
 }
