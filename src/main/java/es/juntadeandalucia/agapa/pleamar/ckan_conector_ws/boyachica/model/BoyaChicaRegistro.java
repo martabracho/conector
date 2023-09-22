@@ -20,7 +20,6 @@ public class BoyaChicaRegistro {
     private String Dirsw;
     private String Sigp;
     private String Sigm;
-    private String Puu;
     private String lat;
 
     private String lon;
@@ -165,14 +164,6 @@ public class BoyaChicaRegistro {
         Sigm = sigm;
     }
 
-    public String getPuu() {
-        return Puu;
-    }
-
-    public void setPuu(String puu) {
-        Puu = puu;
-    }
-
     public String getLat() {
         return lat;
     }
@@ -304,7 +295,6 @@ public class BoyaChicaRegistro {
                 ", Dirsw='" + Dirsw + '\'' +
                 ", Sigp='" + Sigp + '\'' +
                 ", Sigm='" + Sigm + '\'' +
-                ", Puu='" + Puu + '\'' +
                 ", lat='" + lat + '\'' +
                 ", lon='" + lon + '\'' +
                 ", sst='" + sst + '\'' +
@@ -324,35 +314,20 @@ public class BoyaChicaRegistro {
 
     public String toStringFormatoKML() {
         StringBuilder kml = new StringBuilder("<description>");
-        return  "Altura de ola significativa (m)='" + Hm0 + '\'' +
-                ", Altura máxima de ola (m)='" + Hmax + '\'' +
-                ", Altura de las olas del oleaje (m)='" + Hsw + '\'' +
-                ", Periodo pico de onda (s)='" + Tp + '\'' +
-                ", Período de oleaje (s)='" + Tsw + '\'' +
-                ", Periodo medio de onda Tm01 (s)='" + Tm01 + '\'' +
-                ", Periodo medio de onda Tm02 (s)='" + Tm02 + '\'' +
-                ", Periodo medio de onda Tm-10 (s)='" + Tm10 + '\'' +
-                ", Período promedio de ola (s)='" + Tavg + '\'' +
-                ", período máximo de onda (s)='" + Tmax + '\'' +
-                ", Dirección de onda máxima (deg N)='" + Dirp + '\'' +
-                ", Dirección media de la onda (deg N)='" + Dirm + '\'' +
-                ", Dirección de la onda del oleaje (deg N)='" + Dirsw + '\'' +
-                ", Dispersión direccional máxima (deg)='" + Sigp + '\'' +
-                ", Difusión direccional media (deg)='" + Sigm + '\'' +
-                ", Espectro de densidad de varianza (Hz)='" + Puu + '\'' +
-                ", Latitud (deg N)='" + lat + '\'' +
-                ", Longitud (deg E)='" + lon + '\'' +
-                ", Temperatura de la superficie del mar (deg C)='" + sst + '\'' +
-                ", Voltaje de la batería (V)='" + VBAT + '\'' +
-                ", Voltaje del panel solar (V)='" + VSOL + '\'' +
-                ", Temperatura interna='" + TEMP + '\'' +
-                ", Humedad relativa (PTM) (%)='" + HUM + '\'' +
-                ", Presión interna (kPa) ='" + PRES + '\'' +
-                ", Calidad de la señal celular (-)='" + CSQ + '\'' +
-                ", Tecnología de acceso a radio celular (-)='" + RAT + '\'' +
-                ", Operador='" + oper + '\'' +
-                ", Banda operador movil='" + source + '\'' +
-                ", Invalido='" + invalid + '\'' +
-                ", Fecha ='" + tstr + '\'';
+        kml.append("Altura de ola significativa (m)='").append(Hm0).append('\'' );
+        kml.append(", Altura máxima de ola (m)='").append(Hmax).append('\'' );
+        kml.append(", Periodo pico de onda (s)='").append(Tp).append('\'' );
+        kml.append(", Período promedio de ola (s)='").append(Tavg).append('\'' );
+        kml.append(", Dirección de onda máxima (grados N)='").append(Dirp).append('\'' );
+        kml.append(", Dirección media de la onda (grados N)='").append(Dirm).append('\'' );
+        kml.append(", Dispersión direccional máxima (grados)='").append(Sigp).append('\'' );
+        kml.append(", Difusión direccional media (grados)='").append(Sigm).append('\'' );
+        kml.append(", Latitud (grados N)='").append(lat).append('\'' );
+        kml.append(", Longitud (grados E)='").append(lon).append('\'' );
+        kml.append(", Temperatura de la superficie del mar (grados C)='").append(sst).append('\'' );
+        kml.append(", Voltaje de la batería (V)='").append(VBAT).append('\'' );
+        kml.append(", Fecha ='").append(tstr).append('\'' );
+        kml.append("</description>");
+        return kml.toString();
     }
 }
