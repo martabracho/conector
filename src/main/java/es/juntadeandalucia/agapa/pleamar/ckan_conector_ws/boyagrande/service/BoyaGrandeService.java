@@ -60,7 +60,7 @@ public class BoyaGrandeService {
         kml.append("<name>").append(name).append("</name>");
         kml.append("<description>");
         for(BoyaGrandeData data : boyaGrande.getData()){
-            kml.append(data.toString());
+            kml.append(data.toStringFormatoKML());
         }
         kml.append("</description>");
         kml.append("<Point>\n");

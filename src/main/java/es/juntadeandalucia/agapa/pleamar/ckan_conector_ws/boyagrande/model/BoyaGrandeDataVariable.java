@@ -40,4 +40,11 @@ public class BoyaGrandeDataVariable {
                 ", unit='" + unit + '\'' +
                 '}';
     }
+
+    public String toStringFormatoKML() {
+        StringBuilder kml = new StringBuilder("");
+        kml.append(this.name).append("(").append(this.unit).append(")='");
+        return kml.toString();
+
+    }
 }
