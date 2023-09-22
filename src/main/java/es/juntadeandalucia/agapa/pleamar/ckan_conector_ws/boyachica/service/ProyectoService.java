@@ -1,6 +1,9 @@
 package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChica;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChicaItem;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChicaRegistro;
@@ -11,10 +14,13 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -46,19 +52,30 @@ public class ProyectoService {
         kml.append("<Document>\n");
         Proyecto proyecto = this.getProyecto(AGAPA_MANCADIZ);
 
-        for (BoyaChicaItem boyaChicaItem : proyecto.getBoyaChicaItem()) {
-            BoyaChica boyaChica = this.boyaChicaService.getBoya(AGAPA_MANCADIZ,boyaChicaItem.getId(),boyaChicaItem.getName());
-            kml.append("<Placemark>\n");
-            kml.append("<name>").append(boyaChicaItem.getName()).append("</name>");
+            Flux fluxBoyaChica = Flux.fromIterable(Arrays.stream(proyecto.getBoyaChicaItem()).toList())
+                    .flatMap(boyaChicaItemFlux -> {
+                            return this.boyaChicaService.getBoyaMono(AGAPA_MANCADIZ,boyaChicaItemFlux.getId(),boyaChicaItemFlux.getName());
+                        });
+        Mono listaCollect = fluxBoyaChica.collectList();
+        List<String> listaMono = (List<String>) listaCollect.block();
+        ObjectMapper mapper = JsonMapper.builder().configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true).build();
+        for (String jsonBoyaChica : listaMono) {
+            //metodo a paralelizarBoyaChica boyaChica = this.boyaChicaService.getBoya(AGAPA_MANCADIZ,boyaChicaItem.getId(),boyaChicaItem.getName());
+            BoyaChica boyaChica = mapper.readValue(jsonBoyaChica, BoyaChica.class);
             if (boyaChica.getData().length>0) {
+                kml.append("<Placemark>\n");
+                kml.append("<name>").append(boyaChica.getName()).append("</name>");
+
                 kml.append("<description>");
                 kml.append(boyaChica.getData()[0].toStringFormatoKML());
                 kml.append("</description>");
+
+                kml.append("<Point>\n");
+                kml.append("<coordinates>" + boyaChica.getData()[0].getLon() + "," + boyaChica.getData()[0].getLat() + "</coordinates>\n");
+                kml.append("</Point>\n");
+                kml.append("</Placemark>");
             }
-            kml.append("<Point>\n");
-            kml.append("<coordinates>" + boyaChicaItem.getLongitude() + "," + boyaChicaItem.getLatitude() + "</coordinates>\n");
-            kml.append("</Point>\n");
-            kml.append("</Placemark>");
+
         }
 
         kml.append("</Document>\n");

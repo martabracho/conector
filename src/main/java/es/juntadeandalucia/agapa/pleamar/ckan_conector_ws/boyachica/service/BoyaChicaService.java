@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 import org.apache.commons.csv.CSVFormat;
+import reactor.core.publisher.Mono;
 
 @Component
 public class BoyaChicaService {
@@ -30,6 +31,10 @@ public class BoyaChicaService {
         return boyaChica;
     }
 
+    public Mono<String> getBoyaMono(String codigoProyecto, int idBoya, String name)  {
+
+            return this.boyaChicaRepository.getBoyaChicaMono(codigoProyecto, idBoya);
+    }
 
     public StringWriter obtenerCsvBoyaChica(String codigoProyecto, int idBoya) throws JsonProcessingException {
         BoyaChica boyaChica = this.boyaChicaRepository.getBoyaChica(codigoProyecto, idBoya);

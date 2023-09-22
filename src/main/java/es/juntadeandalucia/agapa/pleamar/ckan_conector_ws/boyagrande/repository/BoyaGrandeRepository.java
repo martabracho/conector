@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 @Repository
 public class BoyaGrandeRepository {
@@ -41,6 +42,11 @@ public class BoyaGrandeRepository {
         final ExchangeStrategies strategies = ExchangeStrategies.builder().codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(SIZE_BUFFER_STREAM)).build();
         WebClient client = WebClient.builder().exchangeStrategies(strategies).baseUrl(url).build();
         return client.post().uri(uriBuilder -> uriBuilder.path(pathBase).path("/viewdata").build()).header(HttpHeaders.AUTHORIZATION, "Bearer " + token).contentType(MediaType.APPLICATION_JSON).bodyValue(new BoyaGrandeTrackRequest()).retrieve().bodyToMono(BoyaGrandeTracks.class).block();
+    }
+
+    public Mono<BoyaGrande> getBoyaUltimoTrackMono(String token, Integer idBoya) {
+        WebClient client = WebClient.create(url);
+        return client.get().uri(uriBuilder -> uriBuilder.path(pathBase).path("/tracks/device/").path(String.valueOf(idBoya)).build()).header(HttpHeaders.AUTHORIZATION, "Bearer " + token).retrieve().bodyToMono(BoyaGrande.class);
     }
 }
 

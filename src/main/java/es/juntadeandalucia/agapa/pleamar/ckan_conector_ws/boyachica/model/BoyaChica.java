@@ -31,4 +31,5 @@ public class BoyaChica {
     public void setName(String name) {
         this.name = name;
     }
+
 }

@@ -8,6 +8,7 @@ import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaCh
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 @Repository
 public class BoyaChicaRepository {
@@ -30,6 +31,14 @@ public class BoyaChicaRepository {
         ObjectMapper mapper = JsonMapper.builder().configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true).build();
         BoyaChica boyaChica = mapper.readValue(jsonBoyaChica, BoyaChica.class);
         return boyaChica;
+    }
+
+    public Mono<String> getBoyaChicaMono(String project, int idBoya)  {
+        WebClient client = WebClient.create(url);
+        return client.get().uri(uriBuilder -> uriBuilder.path(pathBase)
+                .queryParam("username", usuario).queryParam("key", password)
+                .queryParam("project", project).queryParam("station", idBoya)
+                .queryParam("dataOnly").queryParam("tz", "local").build()).retrieve().bodyToMono(String.class);
     }
 
 
