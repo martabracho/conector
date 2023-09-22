@@ -20,6 +20,7 @@ import java.util.List;
 @Component
 public class ProyectoService {
 
+    public static final String AGAPA_MANCADIZ = "AgapaMancadiz";
     private final ProyectoRepository proyectoRepository;
 
     private final BoyaChicaService boyaChicaService;
@@ -43,25 +44,23 @@ public class ProyectoService {
         StringBuilder kml = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
         kml.append("<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n");
         kml.append("<Document>\n");
-        List<ProyectoItem> proyectosItem = this.getProyectosItem();
+        Proyecto proyecto = this.getProyecto(AGAPA_MANCADIZ);
 
-        for (ProyectoItem proyectoItem : proyectosItem) {
-            Proyecto proyecto = this.getProyecto(proyectoItem.getName());
-            for (BoyaChicaItem boyaChicaItem : proyecto.getBoyaChicaItem()) {
-                BoyaChica boyaChica = this.boyaChicaService.getBoya(proyectoItem.getName(),boyaChicaItem.getId(),boyaChicaItem.getName());
-                kml.append("<Placemark>\n");
-                kml.append("<name>").append(boyaChicaItem.getName()).append("</name>");
-                if (boyaChica.getData().length>0) {
-                    kml.append("<description>");
-                    kml.append(boyaChica.getData()[0].toString());
-                    kml.append("</description>");
-                }
-                kml.append("<Point>\n");
-                kml.append("<coordinates>" + boyaChicaItem.getLongitude() + "," + boyaChicaItem.getLatitude() + "</coordinates>\n");
-                kml.append("</Point>\n");
-                kml.append("</Placemark>");
+        for (BoyaChicaItem boyaChicaItem : proyecto.getBoyaChicaItem()) {
+            BoyaChica boyaChica = this.boyaChicaService.getBoya(AGAPA_MANCADIZ,boyaChicaItem.getId(),boyaChicaItem.getName());
+            kml.append("<Placemark>\n");
+            kml.append("<name>").append(boyaChicaItem.getName()).append("</name>");
+            if (boyaChica.getData().length>0) {
+                kml.append("<description>");
+                kml.append(boyaChica.getData()[0].toStringFormatoKML());
+                kml.append("</description>");
             }
+            kml.append("<Point>\n");
+            kml.append("<coordinates>" + boyaChicaItem.getLongitude() + "," + boyaChicaItem.getLatitude() + "</coordinates>\n");
+            kml.append("</Point>\n");
+            kml.append("</Placemark>");
         }
+
         kml.append("</Document>\n");
         kml.append("</kml>\n");
         return kml.toString();
