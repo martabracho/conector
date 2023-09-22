@@ -19,6 +19,9 @@ spring:
       profile: v01
       label: master
       fail-fast: true
+  jackson:
+    mapper:
+      accept_case_insensitive_properties: true
 
 server:
   servlet.contextPath: /agenciaagrariaypesquera/pleamar/conectormarabierto
