@@ -22,6 +22,8 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Component
 public class ProyectoService {
@@ -52,28 +54,27 @@ public class ProyectoService {
         kml.append("<Document>\n");
         Proyecto proyecto = this.getProyecto(AGAPA_MANCADIZ);
 
-            Flux fluxBoyaChica = Flux.fromIterable(Arrays.stream(proyecto.getBoyaChicaItem()).toList())
-                    .flatMap(boyaChicaItemFlux -> {
-                            return this.boyaChicaService.getBoyaMono(AGAPA_MANCADIZ,boyaChicaItemFlux.getId(),boyaChicaItemFlux.getName());
-                        });
-        Mono listaCollect = fluxBoyaChica.collectList();
-        List<String> listaMono = (List<String>) listaCollect.block();
-        ObjectMapper mapper = JsonMapper.builder().configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true).build();
-        for (String jsonBoyaChica : listaMono) {
-            //metodo a paralelizarBoyaChica boyaChica = this.boyaChicaService.getBoya(AGAPA_MANCADIZ,boyaChicaItem.getId(),boyaChicaItem.getName());
-            BoyaChica boyaChica = mapper.readValue(jsonBoyaChica, BoyaChica.class);
+        List<BoyaChica> listaBoyas = Arrays.stream(proyecto.getBoyaChicaItem()).parallel().map( boyaChicaItem -> {
+            BoyaChica boyaChica;
+            try {
+                boyaChica =  this.boyaChicaService.getBoya(AGAPA_MANCADIZ,boyaChicaItem.getId(),boyaChicaItem.getName());
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+            return boyaChica;
+        }  ).collect(Collectors.toList());
+
+        for (BoyaChica boyaChica : listaBoyas ){
             if (boyaChica.getData().length>0) {
                 kml.append("<Placemark>\n");
                 kml.append("<name>").append(boyaChica.getName()).append("</name>");
-
-                kml.append(boyaChica.getData()[0].toStringFormatoKML());
-
+                int pos = boyaChica.getData().length-1;
+                kml.append(boyaChica.getData()[pos].toStringFormatoKML());
                 kml.append("<Point>\n");
-                kml.append("<coordinates>" + boyaChica.getData()[0].getLon() + "," + boyaChica.getData()[0].getLat() + "</coordinates>\n");
+                kml.append("<coordinates>" + boyaChica.getData()[pos].getLon() + "," + boyaChica.getData()[pos].getLat() + "</coordinates>\n");
                 kml.append("</Point>\n");
                 kml.append("</Placemark>");
             }
-
         }
 
         kml.append("</Document>\n");
