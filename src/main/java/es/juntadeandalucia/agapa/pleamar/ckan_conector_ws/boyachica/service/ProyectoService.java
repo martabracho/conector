@@ -66,9 +66,7 @@ public class ProyectoService {
                 kml.append("<Placemark>\n");
                 kml.append("<name>").append(boyaChica.getName()).append("</name>");
 
-                kml.append("<description>");
                 kml.append(boyaChica.getData()[0].toStringFormatoKML());
-                kml.append("</description>");
 
                 kml.append("<Point>\n");
                 kml.append("<coordinates>" + boyaChica.getData()[0].getLon() + "," + boyaChica.getData()[0].getLat() + "</coordinates>\n");
