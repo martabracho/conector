@@ -18,6 +18,7 @@ import reactor.core.publisher.Mono;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class BoyaGrandeService {
@@ -51,13 +52,20 @@ public class BoyaGrandeService {
         kml.append("<Document>\n");
         List<Integer> idsBoya = Arrays.asList(1, 2);
 
-        Flux fluxBoyaChica = Flux.fromIterable(idsBoya)
-                .flatMap(this :: getBoyaUltimoTrackMono);
-        Mono listaCollect = fluxBoyaChica.collectList();
-        List<BoyaGrande> listaMono = (List<BoyaGrande>) listaCollect.block();
+        List<BoyaGrande> listaBoyas = idsBoya.stream().parallel().map( idBoya -> {
+            BoyaGrande boyaGrande;
+            boyaGrande =  this.getBoyaUltimoTrack(idBoya);
+            boyaGrande.setId(String.valueOf(idBoya));
+            return boyaGrande;
+        }  ).collect(Collectors.toList());
 
-        for (BoyaGrande boyaGrande: listaMono){
-            kml.append(this.getKml(boyaGrande,"HUELVA"));
+
+        for (BoyaGrande boyaGrande: listaBoyas){
+            if("1".equals(boyaGrande.getId())) {
+                kml.append(this.getKml(boyaGrande, "HUELVA"));
+            }else if("2".equals(boyaGrande.getId())){
+                kml.append(this.getKml(boyaGrande, "ALMERÍA"));
+            }
         }
 
         kml.append("</Document>\n");
