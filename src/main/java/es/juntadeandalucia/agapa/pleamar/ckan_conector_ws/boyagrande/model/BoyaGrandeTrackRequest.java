@@ -3,7 +3,7 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model;
 public class BoyaGrandeTrackRequest {
 
     private String id = "2";
-    private String startRange = "2023-09-17 23:00:00";
+    private String startRange = "2023-09-24 23:00:00";
     private String endRange;
 
     public String getId() {

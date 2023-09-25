@@ -50,7 +50,7 @@ public class BoyaGrandeService {
         StringBuilder kml = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
         kml.append("<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n");
         kml.append("<Document>\n");
-        List<Integer> idsBoya = Arrays.asList(1, 2);
+        List<Integer> idsBoya = Arrays.asList(2, 3);
 
         List<BoyaGrande> listaBoyas = idsBoya.stream().parallel().map( idBoya -> {
             BoyaGrande boyaGrande;
@@ -61,9 +61,9 @@ public class BoyaGrandeService {
 
 
         for (BoyaGrande boyaGrande: listaBoyas){
-            if("1".equals(boyaGrande.getId())) {
+            if("2".equals(boyaGrande.getId())) {
                 kml.append(this.getKml(boyaGrande, "HUELVA"));
-            }else if("2".equals(boyaGrande.getId())){
+            }else if("3".equals(boyaGrande.getId())){
                 kml.append(this.getKml(boyaGrande, "ALMERÍA"));
             }
         }

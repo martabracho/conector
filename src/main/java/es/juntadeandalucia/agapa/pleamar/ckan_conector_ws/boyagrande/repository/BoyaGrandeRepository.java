@@ -41,7 +41,9 @@ public class BoyaGrandeRepository {
     public BoyaGrandeTracks getBoyaTracks(String token, long idBoya) {
         final ExchangeStrategies strategies = ExchangeStrategies.builder().codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(SIZE_BUFFER_STREAM)).build();
         WebClient client = WebClient.builder().exchangeStrategies(strategies).baseUrl(url).build();
-        return client.post().uri(uriBuilder -> uriBuilder.path(pathBase).path("/viewdata").build()).header(HttpHeaders.AUTHORIZATION, "Bearer " + token).contentType(MediaType.APPLICATION_JSON).bodyValue(new BoyaGrandeTrackRequest()).retrieve().bodyToMono(BoyaGrandeTracks.class).block();
+        BoyaGrandeTrackRequest boyaGrandeTrackRequest = new BoyaGrandeTrackRequest();
+        boyaGrandeTrackRequest.setId(String.valueOf(idBoya));
+        return client.post().uri(uriBuilder -> uriBuilder.path(pathBase).path("/viewdata").build()).header(HttpHeaders.AUTHORIZATION, "Bearer " + token).contentType(MediaType.APPLICATION_JSON).bodyValue(boyaGrandeTrackRequest).retrieve().bodyToMono(BoyaGrandeTracks.class).block();
     }
 
     public Mono<BoyaGrande> getBoyaUltimoTrackMono(String token, Integer idBoya) {
