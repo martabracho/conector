@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -94,5 +95,17 @@ public class BoyaGrandeService {
         kml.append("</Point>\n");
         kml.append("</Placemark>");
         return kml.toString();
+    }
+
+    public List<BoyaGrande> getUltimoTrack() {
+        List<BoyaGrande> listaBoyasGrandes;
+        List<Integer> idsBoya = Arrays.asList(2, 3);
+        listaBoyasGrandes = idsBoya.stream().parallel().map( idBoya -> {
+            BoyaGrande boyaGrande;
+            boyaGrande =  this.getBoyaUltimoTrack(idBoya);
+            boyaGrande.setId(String.valueOf(idBoya));
+            return boyaGrande;
+        }  ).collect(Collectors.toList());
+        return listaBoyasGrandes;
     }
 }
