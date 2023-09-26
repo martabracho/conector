@@ -1,9 +1,11 @@
 package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class BoyaGrandeTrackRequest {
 
-    private String id = "2";
-    private String startRange = "2023-09-24 23:00:00";
+    private String id;
     private String endRange;
 
     public String getId() {
@@ -14,13 +16,15 @@ public class BoyaGrandeTrackRequest {
         this.id = id;
     }
 
-    public String getStartRange() {
-        return startRange;
+    public String getStartRange()
+    {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR_OF_DAY, -24);
+        return simpleDateFormat.format(calendar.getTime());
     }
 
-    public void setStartRange(String startRange) {
-        this.startRange = startRange;
-    }
+
 
     public String getEndRange() {
         return endRange;
