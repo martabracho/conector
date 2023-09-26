@@ -29,8 +29,7 @@ public class BoyaChicaRepository {
                 .queryParam("project", project).queryParam("station", idBoya)
                 .queryParam("dataOnly").queryParam("tz","local").build()).retrieve().bodyToMono(String.class).block();
         ObjectMapper mapper = JsonMapper.builder().configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true).build();
-        BoyaChica boyaChica = mapper.readValue(jsonBoyaChica, BoyaChica.class);
-        return boyaChica;
+        return mapper.readValue(jsonBoyaChica, BoyaChica.class);
     }
 
     public Mono<String> getBoyaChicaMono(String project, int idBoya)  {

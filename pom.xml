@@ -74,38 +74,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
-			<!--
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>jaxb2-maven-plugin</artifactId>
-                            <version>3.1.0</version>
-                            <executions>
-                                <execution>
-                                    <id>xjc</id>
-                                    <goals>
-                                        <goal>xjc</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                            <configuration>
-
-
-                                <xjbSources>
-                                    <xjbSource>src/main/resources/xsd/kml-v_2_2_0.xjb</xjbSource>
-                                </xjbSources>
-
-
-					<sources>
-						<source>src/main/resources/xsd/ogckml22.xsd</source>
-					</sources>
-
-					<outputDirectory>${basedir}/src/main/java</outputDirectory>
-					<clearOutputDir>false</clearOutputDir>
-				</configuration>
-			</plugin>
- -->
-
 		</plugins>
 	</build>
 

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -29,22 +28,22 @@ public class BoyaGrandeController {
 
 
     @GetMapping("/boya/{idBoya}/ultimoTrack")
-    public ResponseEntity<BoyaGrande> getBoyaUltimoTrack(@PathVariable long idBoya) throws IOException {
+    public ResponseEntity<BoyaGrande> getBoyaUltimoTrack(@PathVariable long idBoya) {
         return new ResponseEntity<>(this.boyaGrandeService.getBoyaUltimoTrack(idBoya), HttpStatus.OK);
     }
 
     @GetMapping("/ultimoTrack")
-    public ResponseEntity<List<BoyaGrande>> getUltimoTrack() throws IOException {
+    public ResponseEntity<List<BoyaGrande>> getUltimoTrack() {
         return new ResponseEntity<>(this.boyaGrandeService.getUltimoTrack(), HttpStatus.OK);
     }
 
     @GetMapping("/boya/{idBoya}/tracks")
-    public ResponseEntity<BoyaGrandeTracks> getBoyaTracks(@PathVariable long idBoya) throws IOException {
+    public ResponseEntity<BoyaGrandeTracks> getBoyaTracks(@PathVariable long idBoya) {
         return new ResponseEntity<>(this.boyaGrandeService.getBoyaTracks(idBoya), HttpStatus.OK);
     }
 
     @GetMapping("/kml")
-    public ResponseEntity<String> getKml() throws IOException {
+    public ResponseEntity<String> getKml() {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=estacionOceanografica.kml");
         headers.set(HttpHeaders.CONTENT_TYPE, "application/vnd.google-earth.kml+xml");

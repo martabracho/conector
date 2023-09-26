@@ -5,32 +5,32 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BoyaChicaRegistro {
     private String time;
-    private String Hm0;
-    private String Hmax;
-    private String Hsw;
-    private String Tp;
-    private String Tsw;
-    private String Tm01;
-    private String Tm02;
-    private String Tm10;
-    private String Tavg;
-    private String Tmax;
-    private String Dirp;
-    private String Dirm;
-    private String Dirsw;
-    private String Sigp;
-    private String Sigm;
+    private String hm0;
+    private String hmax;
+    private String hsw;
+    private String tp;
+    private String tsw;
+    private String tm01;
+    private String tm02;
+    private String tm10;
+    private String tavg;
+    private String tmax;
+    private String dirp;
+    private String dirm;
+    private String dirsw;
+    private String sigp;
+    private String sigm;
     private String lat;
 
     private String lon;
     private String sst;
-    private String VBAT;
-    private String VSOL;
-    private String TEMP;
-    private String HUM;
-    private String PRES;
-    private String CSQ;
-    private String RAT;
+    private String vbat;
+    private String vsol;
+    private String temp;
+    private String hum;
+    private String pres;
+    private String csq;
+    private String rat;
     private String oper;
     private String source;
     private String invalid;
@@ -45,123 +45,123 @@ public class BoyaChicaRegistro {
     }
 
     public String getHm0() {
-        return Hm0;
+        return hm0;
     }
 
     public void setHm0(String hm0) {
-        Hm0 = hm0;
+        this.hm0 = hm0;
     }
 
     public String getHmax() {
-        return Hmax;
+        return hmax;
     }
 
     public void setHmax(String hmax) {
-        Hmax = hmax;
+        this.hmax = hmax;
     }
 
     public String getHsw() {
-        return Hsw;
+        return hsw;
     }
 
     public void setHsw(String hsw) {
-        Hsw = hsw;
+        this.hsw = hsw;
     }
 
     public String getTp() {
-        return Tp;
+        return tp;
     }
 
     public void setTp(String tp) {
-        Tp = tp;
+        this.tp = tp;
     }
 
     public String getTsw() {
-        return Tsw;
+        return tsw;
     }
 
     public void setTsw(String tsw) {
-        Tsw = tsw;
+        this.tsw = tsw;
     }
 
     public String getTm01() {
-        return Tm01;
+        return tm01;
     }
 
     public void setTm01(String tm01) {
-        Tm01 = tm01;
+        this.tm01 = tm01;
     }
 
     public String getTm02() {
-        return Tm02;
+        return tm02;
     }
 
     public void setTm02(String tm02) {
-        Tm02 = tm02;
+        this.tm02 = tm02;
     }
 
     public String getTm10() {
-        return Tm10;
+        return tm10;
     }
 
     public void setTm10(String tm10) {
-        Tm10 = tm10;
+        this.tm10 = tm10;
     }
 
     public String getTavg() {
-        return Tavg;
+        return tavg;
     }
 
     public void setTavg(String tavg) {
-        Tavg = tavg;
+        this.tavg = tavg;
     }
 
     public String getTmax() {
-        return Tmax;
+        return tmax;
     }
 
     public void setTmax(String tmax) {
-        Tmax = tmax;
+        this.tmax = tmax;
     }
 
     public String getDirp() {
-        return Dirp;
+        return dirp;
     }
 
     public void setDirp(String dirp) {
-        Dirp = dirp;
+        this.dirp = dirp;
     }
 
     public String getDirm() {
-        return Dirm;
+        return dirm;
     }
 
     public void setDirm(String dirm) {
-        Dirm = dirm;
+        this.dirm = dirm;
     }
 
     public String getDirsw() {
-        return Dirsw;
+        return dirsw;
     }
 
     public void setDirsw(String dirsw) {
-        Dirsw = dirsw;
+        this.dirsw = dirsw;
     }
 
     public String getSigp() {
-        return Sigp;
+        return sigp;
     }
 
     public void setSigp(String sigp) {
-        Sigp = sigp;
+        this.sigp = sigp;
     }
 
     public String getSigm() {
-        return Sigm;
+        return sigm;
     }
 
     public void setSigm(String sigm) {
-        Sigm = sigm;
+        this.sigm = sigm;
     }
 
     public String getLat() {
@@ -188,60 +188,60 @@ public class BoyaChicaRegistro {
         this.sst = sst;
     }
 
-    public String getVBAT() {
-        return VBAT;
+    public String getVbat() {
+        return vbat;
     }
 
-    public void setVBAT(String VBAT) {
-        this.VBAT = VBAT;
+    public void setVbat(String vbat) {
+        this.vbat = vbat;
     }
 
-    public String getVSOL() {
-        return VSOL;
+    public String getVsol() {
+        return vsol;
     }
 
-    public void setVSOL(String VSOL) {
-        this.VSOL = VSOL;
+    public void setVsol(String vsol) {
+        this.vsol = vsol;
     }
 
-    public String getTEMP() {
-        return TEMP;
+    public String getTemp() {
+        return temp;
     }
 
-    public void setTEMP(String TEMP) {
-        this.TEMP = TEMP;
+    public void setTemp(String temp) {
+        this.temp = temp;
     }
 
-    public String getHUM() {
-        return HUM;
+    public String getHum() {
+        return hum;
     }
 
-    public void setHUM(String HUM) {
-        this.HUM = HUM;
+    public void setHum(String hum) {
+        this.hum = hum;
     }
 
-    public String getPRES() {
-        return PRES;
+    public String getPres() {
+        return pres;
     }
 
-    public void setPRES(String PRES) {
-        this.PRES = PRES;
+    public void setPres(String pres) {
+        this.pres = pres;
     }
 
-    public String getCSQ() {
-        return CSQ;
+    public String getCsq() {
+        return csq;
     }
 
-    public void setCSQ(String CSQ) {
-        this.CSQ = CSQ;
+    public void setCsq(String csq) {
+        this.csq = csq;
     }
 
-    public String getRAT() {
-        return RAT;
+    public String getRat() {
+        return rat;
     }
 
-    public void setRAT(String RAT) {
-        this.RAT = RAT;
+    public void setRat(String rat) {
+        this.rat = rat;
     }
 
     public String getOper() {
@@ -276,35 +276,36 @@ public class BoyaChicaRegistro {
         this.tstr = tstr;
     }
 
+
     @Override
     public String toString() {
         return "BoyaChicaRegistro{" +
                 "time='" + time + '\'' +
-                ", Hm0='" + Hm0 + '\'' +
-                ", Hmax='" + Hmax + '\'' +
-                ", Hsw='" + Hsw + '\'' +
-                ", Tp='" + Tp + '\'' +
-                ", Tsw='" + Tsw + '\'' +
-                ", Tm01='" + Tm01 + '\'' +
-                ", Tm02='" + Tm02 + '\'' +
-                ", Tm10='" + Tm10 + '\'' +
-                ", Tavg='" + Tavg + '\'' +
-                ", Tmax='" + Tmax + '\'' +
-                ", Dirp='" + Dirp + '\'' +
-                ", Dirm='" + Dirm + '\'' +
-                ", Dirsw='" + Dirsw + '\'' +
-                ", Sigp='" + Sigp + '\'' +
-                ", Sigm='" + Sigm + '\'' +
+                ", hm0='" + hm0 + '\'' +
+                ", hmax='" + hmax + '\'' +
+                ", hsw='" + hsw + '\'' +
+                ", tp='" + tp + '\'' +
+                ", tsw='" + tsw + '\'' +
+                ", tm01='" + tm01 + '\'' +
+                ", tm02='" + tm02 + '\'' +
+                ", tm10='" + tm10 + '\'' +
+                ", tavg='" + tavg + '\'' +
+                ", tmax='" + tmax + '\'' +
+                ", dirp='" + dirp + '\'' +
+                ", dirm='" + dirm + '\'' +
+                ", dirsw='" + dirsw + '\'' +
+                ", sigp='" + sigp + '\'' +
+                ", sigm='" + sigm + '\'' +
                 ", lat='" + lat + '\'' +
                 ", lon='" + lon + '\'' +
                 ", sst='" + sst + '\'' +
-                ", VBAT='" + VBAT + '\'' +
-                ", VSOL='" + VSOL + '\'' +
-                ", TEMP='" + TEMP + '\'' +
-                ", HUM='" + HUM + '\'' +
-                ", PRES='" + PRES + '\'' +
-                ", CSQ='" + CSQ + '\'' +
-                ", RAT='" + RAT + '\'' +
+                ", vbat='" + vbat + '\'' +
+                ", vsol='" + vsol + '\'' +
+                ", temp='" + temp + '\'' +
+                ", hum='" + hum + '\'' +
+                ", pres='" + pres + '\'' +
+                ", csq='" + csq + '\'' +
+                ", rat='" + rat + '\'' +
                 ", oper='" + oper + '\'' +
                 ", source='" + source + '\'' +
                 ", invalid='" + invalid + '\'' +
@@ -314,18 +315,18 @@ public class BoyaChicaRegistro {
 
     public String toStringFormatoKML() {
         StringBuilder kml = new StringBuilder("<description>");
-        kml.append("Altura de ola significativa (m)='").append(Hm0).append('\'' );
-        kml.append(", Altura máxima de ola (m)='").append(Hmax).append('\'' );
-        kml.append(", Periodo pico de onda (s)='").append(Tp).append('\'' );
-        kml.append(", Período promedio de ola (s)='").append(Tavg).append('\'' );
-        kml.append(", Dirección de onda máxima (grados N)='").append(Dirp).append('\'' );
-        kml.append(", Dirección media de la onda (grados N)='").append(Dirm).append('\'' );
-        kml.append(", Dispersión direccional máxima (grados)='").append(Sigp).append('\'' );
-        kml.append(", Difusión direccional media (grados)='").append(Sigm).append('\'' );
+        kml.append("Altura de ola significativa (m)='").append(hm0).append('\'' );
+        kml.append(", Altura máxima de ola (m)='").append(hmax).append('\'' );
+        kml.append(", Periodo pico de onda (s)='").append(tp).append('\'' );
+        kml.append(", Período promedio de ola (s)='").append(tavg).append('\'' );
+        kml.append(", Dirección de onda máxima (grados N)='").append(dirp).append('\'' );
+        kml.append(", Dirección media de la onda (grados N)='").append(dirm).append('\'' );
+        kml.append(", Dispersión direccional máxima (grados)='").append(sigp).append('\'' );
+        kml.append(", Difusión direccional media (grados)='").append(sigm).append('\'' );
         kml.append(", Latitud (grados N)='").append(lat).append('\'' );
         kml.append(", Longitud (grados E)='").append(lon).append('\'' );
         kml.append(", Temperatura de la superficie del mar (grados C)='").append(sst).append('\'' );
-        kml.append(", Voltaje de la batería (V)='").append(VBAT).append('\'' );
+        kml.append(", Voltaje de la batería (V)='").append(vbat).append('\'' );
         kml.append(", Fecha ='").append(tstr).append('\'' );
         kml.append("</description>");
         return kml.toString();

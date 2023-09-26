@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -54,14 +53,6 @@ public class ProyectoController {
         return new ResponseEntity<>(this.proyectoService.obtenerKmlBoyasChicas(), headers, HttpStatus.OK);
     }
 
-    @GetMapping("/csv")
-    public ResponseEntity<String> boyasChicasCSV() throws JsonProcessingException {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=proyectos.csv");
-        headers.set(HttpHeaders.CONTENT_TYPE, "text/csv");
-        return new ResponseEntity<>(this.proyectoService.obtenerCsvBoyasChicas().toString().trim(), headers, HttpStatus.OK);
-    }
-
     @GetMapping("/json")
     public ResponseEntity<List<BoyaChica>> boyasChicasJSON() throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();
@@ -70,7 +61,6 @@ public class ProyectoController {
     }
     @GetMapping("/{codigoProyecto}/json")
     public ResponseEntity<List<BoyaChica>> boyasChicasProyectoJSON(@PathVariable String codigoProyecto) throws JsonProcessingException {
-        List<BoyaChica> listaBoyaChica = new ArrayList<>();
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_TYPE, "application/json");
         return new ResponseEntity<>(this.proyectoService.obtenerJsonBoyasChicas(codigoProyecto), headers, HttpStatus.OK);

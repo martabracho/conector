@@ -1,25 +1,14 @@
 package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChica;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChicaItem;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.Proyecto;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.ProyectoItem;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrande;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrandeData;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrandeTracks;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.repository.BoyaGrandeRepository;
-import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class BoyaGrandeService {
@@ -58,7 +47,7 @@ public class BoyaGrandeService {
             boyaGrande =  this.getBoyaUltimoTrack(idBoya);
             boyaGrande.setId(String.valueOf(idBoya));
             return boyaGrande;
-        }  ).collect(Collectors.toList());
+        }  ).toList();
 
 
         for (BoyaGrande boyaGrande: listaBoyas){
@@ -74,15 +63,8 @@ public class BoyaGrandeService {
         return kml.toString();
     }
 
-    private Mono<BoyaGrande> getBoyaUltimoTrackMono(Integer idBoya) {
-        String token = this.boyaGrandeRepository.getToken();
-        return this.boyaGrandeRepository.getBoyaUltimoTrackMono(token, idBoya);
-    }
-
     private String getKml(BoyaGrande boyaGrande, String name){
         StringBuilder kml = new StringBuilder();
-       // BoyaGrande boyaGrande = this.getBoyaUltimoTrack(idBoya);
-
         kml.append("<Placemark>\n");
         kml.append("<name>").append(name).append("</name>");
         kml.append("<description>");
@@ -105,7 +87,7 @@ public class BoyaGrandeService {
             boyaGrande =  this.getBoyaUltimoTrack(idBoya);
             boyaGrande.setId(String.valueOf(idBoya));
             return boyaGrande;
-        }  ).collect(Collectors.toList());
+        }  ).toList();
         return listaBoyasGrandes;
     }
 }

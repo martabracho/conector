@@ -26,7 +26,6 @@ public class ProyectoRepository {
 
     public List<ProyectoItem> getProyectosItem() throws JsonProcessingException {
 
-        List<Proyecto> proyecto = null;
         WebClient client = WebClient.create(url);
         String jsonProyectosItem = client.get().uri(uriBuilder -> uriBuilder.path(pathBase)
                 .queryParam("username", usuario)

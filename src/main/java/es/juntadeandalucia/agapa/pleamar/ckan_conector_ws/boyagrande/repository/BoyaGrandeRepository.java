@@ -1,8 +1,6 @@
 package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.repository;
 
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,6 +13,7 @@ import reactor.core.publisher.Mono;
 public class BoyaGrandeRepository {
 
     public static final int SIZE_BUFFER_STREAM = 10 * 1024 * 1024;
+    public static final String BEARER = "Bearer ";
 
     @Value("${boyasgrandes.api.url}")
     private String url;
@@ -35,7 +34,7 @@ public class BoyaGrandeRepository {
 
     public BoyaGrande getBoyaUltimoTrack(String token, long idBoya) {
         WebClient client = WebClient.create(url);
-        return client.get().uri(uriBuilder -> uriBuilder.path(pathBase).path("/tracks/device/").path(String.valueOf(idBoya)).build()).header(HttpHeaders.AUTHORIZATION, "Bearer " + token).retrieve().bodyToMono(BoyaGrande.class).block();
+        return client.get().uri(uriBuilder -> uriBuilder.path(pathBase).path("/tracks/device/").path(String.valueOf(idBoya)).build()).header(HttpHeaders.AUTHORIZATION, BEARER + token).retrieve().bodyToMono(BoyaGrande.class).block();
     }
 
     public BoyaGrandeTracks getBoyaTracks(String token, long idBoya) {
@@ -43,12 +42,12 @@ public class BoyaGrandeRepository {
         WebClient client = WebClient.builder().exchangeStrategies(strategies).baseUrl(url).build();
         BoyaGrandeTrackRequest boyaGrandeTrackRequest = new BoyaGrandeTrackRequest();
         boyaGrandeTrackRequest.setId(String.valueOf(idBoya));
-        return client.post().uri(uriBuilder -> uriBuilder.path(pathBase).path("/viewdata").build()).header(HttpHeaders.AUTHORIZATION, "Bearer " + token).contentType(MediaType.APPLICATION_JSON).bodyValue(boyaGrandeTrackRequest).retrieve().bodyToMono(BoyaGrandeTracks.class).block();
+        return client.post().uri(uriBuilder -> uriBuilder.path(pathBase).path("/viewdata").build()).header(HttpHeaders.AUTHORIZATION, BEARER + token).contentType(MediaType.APPLICATION_JSON).bodyValue(boyaGrandeTrackRequest).retrieve().bodyToMono(BoyaGrandeTracks.class).block();
     }
 
     public Mono<BoyaGrande> getBoyaUltimoTrackMono(String token, Integer idBoya) {
         WebClient client = WebClient.create(url);
-        return client.get().uri(uriBuilder -> uriBuilder.path(pathBase).path("/tracks/device/").path(String.valueOf(idBoya)).build()).header(HttpHeaders.AUTHORIZATION, "Bearer " + token).retrieve().bodyToMono(BoyaGrande.class);
+        return client.get().uri(uriBuilder -> uriBuilder.path(pathBase).path("/tracks/device/").path(String.valueOf(idBoya)).build()).header(HttpHeaders.AUTHORIZATION, BEARER + token).retrieve().bodyToMono(BoyaGrande.class);
     }
 }
 

@@ -1,7 +1,6 @@
 package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.controller;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChica;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service.BoyaChicaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ public class BoyaChicaController {
     public ResponseEntity<BoyaChica> boyasChicasCSV(@PathVariable String codigoProyecto, @PathVariable int idBoya) throws IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_TYPE, "application/json");
-        return new ResponseEntity<BoyaChica>(this.boyaChicaService.getBoya(codigoProyecto, idBoya, ""), headers, HttpStatus.OK);
+        return new ResponseEntity<>(this.boyaChicaService.getBoya(codigoProyecto, idBoya, ""), headers, HttpStatus.OK);
     }
 
 }

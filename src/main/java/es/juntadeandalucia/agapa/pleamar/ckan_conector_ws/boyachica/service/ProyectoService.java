@@ -1,28 +1,17 @@
 package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChica;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChicaItem;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChicaRegistro;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.Proyecto;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.ProyectoItem;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.repository.ProyectoRepository;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
-import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Component
@@ -62,7 +51,7 @@ public class ProyectoService {
                 throw new RuntimeException(e);
             }
             return boyaChica;
-        }  ).collect(Collectors.toList());
+        }  ).toList();
 
         for (BoyaChica boyaChica : listaBoyas ){
             if (boyaChica.getData().length>0) {
@@ -82,29 +71,6 @@ public class ProyectoService {
         return kml.toString();
     }
 
-    public StringWriter obtenerCsvBoyasChicas() throws JsonProcessingException {
-
-        StringWriter sw = new StringWriter();
-        String[] HEADERS = {"Latitud", "Longitud"};
-
-        CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
-                .setHeader(HEADERS)
-                .build();
-
-        List<ProyectoItem> proyectosItem = this.getProyectosItem();
-
-        try (final CSVPrinter printer = new CSVPrinter(sw, csvFormat)) {
-            for (ProyectoItem proyectoItem : proyectosItem) {
-                Proyecto proyecto = this.getProyecto(proyectoItem.getName());
-                for (BoyaChicaItem boyaChicaItem : proyecto.getBoyaChicaItem()) {
-                        printer.printRecord(boyaChicaItem.getLatitude(), boyaChicaItem.getLongitude());
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return sw;
-    }
 
     public List<BoyaChica> obtenerJsonBoyasChicas() throws JsonProcessingException {
 
