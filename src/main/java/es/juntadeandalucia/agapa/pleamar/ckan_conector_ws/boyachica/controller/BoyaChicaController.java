@@ -29,7 +29,7 @@ public class BoyaChicaController {
     public ResponseEntity<BoyaChica> boyasChicasCSV(@PathVariable String codigoProyecto, @PathVariable int idBoya) throws IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_TYPE, "application/json");
-        return new ResponseEntity<>(this.boyaChicaService.getBoya(codigoProyecto, idBoya, ""), headers, HttpStatus.OK);
+        return new ResponseEntity<>(this.boyaChicaService.getBoya(codigoProyecto, idBoya, String.valueOf(idBoya)), headers, HttpStatus.OK);
     }
 
 }
