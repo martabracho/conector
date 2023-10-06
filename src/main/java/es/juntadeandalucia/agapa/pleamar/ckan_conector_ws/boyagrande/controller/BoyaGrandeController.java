@@ -4,6 +4,8 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.controller
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrande;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrandeTracks;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.service.BoyaGrandeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,11 +15,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/apiboyagrande")
 public class BoyaGrandeController {
+
+    Logger logger = LoggerFactory.getLogger(BoyaGrandeController.class);
 
     private final BoyaGrandeService boyaGrandeService;
 
@@ -48,6 +53,14 @@ public class BoyaGrandeController {
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=estacionOceanografica.kml");
         headers.set(HttpHeaders.CONTENT_TYPE, "application/vnd.google-earth.kml+xml");
         return new ResponseEntity<>(this.boyaGrandeService.getKml(), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/hola")
+    public ResponseEntity<String> getHola() {
+
+        logger.error("hola con log", new RuntimeException("Creada la excepcion"));
+        return new ResponseEntity<>(
+                "hola con log", HttpStatus.OK);
     }
 
 

@@ -25,3 +25,7 @@ spring:
 
 server:
   servlet.contextPath: /agenciaagrariaypesquera/pleamar/conectormarabierto
+
+logstash:
+  port: 5000
+  host: localhost
