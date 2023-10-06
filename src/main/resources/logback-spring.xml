@@ -2,7 +2,7 @@
 <configuration>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-            <customFields>{"appname":"myWebservice"}</customFields>
+            <customFields>{"sistema":"pleamar", "subsistema":"ckan_conector_ws"}</customFields>
         </encoder>
 
 
