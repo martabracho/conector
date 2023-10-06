@@ -4,18 +4,8 @@
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <customFields>{"sistema":"pleamar", "subsistema":"ckan_conector_ws"}</customFields>
         </encoder>
-
-
-
     </appender>
-    <appender name="SAVE-TO-FILE" class="ch.qos.logback.core.FileAppender">
-    <file>logs/application.log</file>
-    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-        <pattern>%date [%level][%logger{1}][%thread{1}] %message%replace(%xException){"\n", "\\n"}%nopex%n</pattern>
-    </encoder>
-    </appender>e
     <root level="INFO">
-        <appender-ref ref="SAVE-TO-FILE" />
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>
