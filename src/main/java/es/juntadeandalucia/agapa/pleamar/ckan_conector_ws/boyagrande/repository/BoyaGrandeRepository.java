@@ -1,10 +1,12 @@
 package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.repository;
 
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.*;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.exception.CkanConectorWsErrorException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -33,9 +35,12 @@ public class BoyaGrandeRepository {
     }
 
     public BoyaGrande getBoyaUltimoTrack(String token, long idBoya) {
+        this.validarTokenIdBoya(token,idBoya);
         WebClient client = WebClient.create(url);
         return client.get().uri(uriBuilder -> uriBuilder.path(pathBase).path("/tracks/device/").path(String.valueOf(idBoya)).build()).header(HttpHeaders.AUTHORIZATION, BEARER + token).retrieve().bodyToMono(BoyaGrande.class).block();
     }
+
+
 
     public BoyaGrandeTracks getBoyaTracks(String token, long idBoya) {
         final ExchangeStrategies strategies = ExchangeStrategies.builder().codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(SIZE_BUFFER_STREAM)).build();
@@ -45,9 +50,26 @@ public class BoyaGrandeRepository {
         return client.post().uri(uriBuilder -> uriBuilder.path(pathBase).path("/viewdata").build()).header(HttpHeaders.AUTHORIZATION, BEARER + token).contentType(MediaType.APPLICATION_JSON).bodyValue(boyaGrandeTrackRequest).retrieve().bodyToMono(BoyaGrandeTracks.class).block();
     }
 
-    public Mono<BoyaGrande> getBoyaUltimoTrackMono(String token, Integer idBoya) {
+    public Mono<BoyaGrande> getBoyaUltimoTrackMono(String token, long idBoya) {
         WebClient client = WebClient.create(url);
         return client.get().uri(uriBuilder -> uriBuilder.path(pathBase).path("/tracks/device/").path(String.valueOf(idBoya)).build()).header(HttpHeaders.AUTHORIZATION, BEARER + token).retrieve().bodyToMono(BoyaGrande.class);
     }
+
+    private void validarTokenIdBoya(String token, long idBoya) {
+        String mensajeError = "";
+        String mensajeValidacion = "";
+        if (!StringUtils.hasText(token)){
+            mensajeError +="El token es nulo";
+        }
+        if (idBoya<0){
+            mensajeValidacion += "El identificador de la boya ha de ser igual o superior a cero";
+        }
+        if (StringUtils.hasText(mensajeError)){
+            throw new CkanConectorWsErrorException(mensajeError);
+        }
+
+    }
+
+
 }
 
