@@ -6,24 +6,9 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.exception;
  */
 public class CkanConectorWsErrorException extends RuntimeException{
 
-    String mensajeError = null;
-
-    public String getMensajeError() {
-        return mensajeError;
-    }
-
-    public void setMensajeError(String mensajeError) {
-        this.mensajeError = mensajeError;
-    }
-
     public CkanConectorWsErrorException(String mensajeError) {
-        this.mensajeError = mensajeError;
+       super(mensajeError);
     }
 
-    @Override
-    public String toString() {
-        return "CkanConectorWsErrorException{" +
-                "mensajeError='" + mensajeError + '\'' +
-                '}';
-    }
+
 }

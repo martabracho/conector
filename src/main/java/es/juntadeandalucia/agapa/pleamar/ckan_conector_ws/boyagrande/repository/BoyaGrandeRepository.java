@@ -2,6 +2,7 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.repository
 
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.*;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.exception.CkanConectorWsErrorException;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.exception.CkanConectorWsValidacionException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -10,6 +11,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Repository
 public class BoyaGrandeRepository {
@@ -56,16 +61,20 @@ public class BoyaGrandeRepository {
     }
 
     private void validarTokenIdBoya(String token, long idBoya) {
-        String mensajeError = "";
-        String mensajeValidacion = "";
+        String mensajeError = null;
+        Set<String> mensajeValidacion = new HashSet();
+
         if (!StringUtils.hasText(token)){
-            mensajeError +="El token es nulo";
+            mensajeError = "El token es nulo";
         }
         if (idBoya<0){
-            mensajeValidacion += "El identificador de la boya ha de ser igual o superior a cero";
+            mensajeValidacion.add("El identificador de la boya ha de ser igual o superior a cero");
         }
         if (StringUtils.hasText(mensajeError)){
             throw new CkanConectorWsErrorException(mensajeError);
+        }
+        if (!mensajeValidacion.isEmpty()){
+            throw new CkanConectorWsValidacionException(mensajeValidacion);
         }
 
     }

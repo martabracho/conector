@@ -4,19 +4,26 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.controller
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrande;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrandeTracks;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.service.BoyaGrandeService;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.exception.CkanConectorWsErrorException;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.exception.CkanConectorWsValidacionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+import java.sql.Timestamp;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/apiboyagrande")
@@ -57,10 +64,12 @@ public class BoyaGrandeController {
 
     @GetMapping("/hola")
     public ResponseEntity<String> getHola() {
-
-        logger.error("hola con log", new RuntimeException("Creada la excepcion"));
-        return new ResponseEntity<>(
-                "hola con log", HttpStatus.OK);
+        Set<String> mensajesValidacion = new HashSet();
+        mensajesValidacion.add("mensaje validacion uno");
+        mensajesValidacion.add("mensaje validacion dos");
+       throw new CkanConectorWsValidacionException(mensajesValidacion);
+       //throw new CkanConectorWsErrorException("Creada la excepcion de tipo error");
+        //throw new RuntimeException("Creada la excepcion de tipo runtime");
     }
 
 
