@@ -31,4 +31,4 @@ server:
 
 logstash:
   port: 5000
-  host: localhost
+  host: 10.239.212.30
