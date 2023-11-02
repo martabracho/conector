@@ -1,25 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-
-    <springProperty scope="local" name="logstash_host" source="logstash.host"/>
-    <springProperty scope="local" name="logstash_port" source="logstash.port"/>
-
-
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <customFields>{"sistema":"pleamar", "subsistema":"ckan_conector_ws"}</customFields>
         </encoder>
     </appender>
-    <appender name="logstash"
-              class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <param name="Encoding" value="UTF-8"/>
-        <destination>${logstash_host}:${logstash_port}</destination>
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-            <customFields>{"sistema":"pleamar", "subsistema":"ckan_conector_ws_tcp_envio"}</customFields>
-        </encoder>
-    </appender>
+
     <root>
         <appender-ref ref="STDOUT" />
-        <appender-ref ref="logstash" />
     </root>
 </configuration>

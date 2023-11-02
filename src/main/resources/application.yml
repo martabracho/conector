@@ -28,7 +28,3 @@ server:
     whitelabel:
       enabled: true
   servlet.contextPath: /agenciaagrariaypesquera/pleamar/conectormarabierto
-
-logstash:
-  port: 5000
-  host: 10.239.212.30
