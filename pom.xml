@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>es.juntadeandalucia.agapa.pleamar</groupId>
 	<artifactId>ckan_conector_ws</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>ckan_conector_ws</name>
 	<description>Conector para facilitar la integracion de las apis en ckan</description>
 	<properties>
