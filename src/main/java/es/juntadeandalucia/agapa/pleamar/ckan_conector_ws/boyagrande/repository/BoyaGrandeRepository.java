@@ -12,6 +12,7 @@ import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -52,8 +53,29 @@ public class BoyaGrandeRepository {
         WebClient client = WebClient.builder().exchangeStrategies(strategies).baseUrl(url).build();
         BoyaGrandeTrackRequest boyaGrandeTrackRequest = new BoyaGrandeTrackRequest();
         boyaGrandeTrackRequest.setId(String.valueOf(idBoya));
+
         return client.post().uri(uriBuilder -> uriBuilder.path(pathBase).path("/viewdata").build()).header(HttpHeaders.AUTHORIZATION, BEARER + token).contentType(MediaType.APPLICATION_JSON).bodyValue(boyaGrandeTrackRequest).retrieve().bodyToMono(BoyaGrandeTracks.class).block();
     }
+
+    /**
+     * Track de la boya indicada con un rango de fecha - hora concreto. (Formato de fecha YYYY-MM-DD HH:MM:SS)
+     * @param token
+     * @param idBoya
+     * @param fechaInicio
+     * @param fechaFin
+     * @return
+     */
+    public BoyaGrandeTracks getBoyaFilterTracks(String token, long idBoya, String fechaInicio, String fechaFin){
+        final ExchangeStrategies strategies = ExchangeStrategies.builder().codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(SIZE_BUFFER_STREAM)).build();
+        WebClient client = WebClient.builder().exchangeStrategies(strategies).baseUrl(url).build();
+        BoyaGrandeTrackRequest boyaGrandeTrackRequest = new BoyaGrandeTrackRequest();
+        boyaGrandeTrackRequest.setId(String.valueOf(idBoya));
+        boyaGrandeTrackRequest.setStartRange(fechaInicio);
+        boyaGrandeTrackRequest.setEndRange(fechaFin);
+        return client.post().uri(uriBuilder -> uriBuilder.path(pathBase).path("/viewdata").build()).header(HttpHeaders.AUTHORIZATION, BEARER + token).contentType(MediaType.APPLICATION_JSON).bodyValue(boyaGrandeTrackRequest).retrieve().bodyToMono(BoyaGrandeTracks.class).block();
+    }
+
+
 
     public Mono<BoyaGrande> getBoyaUltimoTrackMono(String token, long idBoya) {
         WebClient client = WebClient.create(url);

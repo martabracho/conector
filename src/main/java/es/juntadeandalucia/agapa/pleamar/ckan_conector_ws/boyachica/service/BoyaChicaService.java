@@ -21,6 +21,7 @@ public class BoyaChicaService {
     public BoyaChica getBoya(String codigoProyecto, int idBoya, String name) throws JsonProcessingException {
         BoyaChica boyaChica = this.boyaChicaRepository.getBoyaChica(codigoProyecto, idBoya);
         boyaChica.setName(name);
+        boyaChica.setId(idBoya);
         return boyaChica;
     }
 

@@ -7,6 +7,7 @@ import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.repository.
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,12 +36,17 @@ public class BoyaGrandeService {
         return this.boyaGrandeRepository.getBoyaTracks(token, idBoya);
     }
 
+    public BoyaGrandeTracks getBoyaFilterDates(long idBoya, String fechaIncio, String fechaFin){
+        String token = this.boyaGrandeRepository.getToken();
+        return this.boyaGrandeRepository.getBoyaFilterTracks(token, idBoya,fechaIncio,fechaFin);
+    }
+
     public String getKml() {
 
         StringBuilder kml = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
         kml.append("<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n");
         kml.append("<Document>\n");
-        List<Integer> idsBoya = Arrays.asList(2, 3);
+        List<Integer> idsBoya = Arrays.asList(2, 3, 4, 5);
 
         List<BoyaGrande> listaBoyas = idsBoya.stream().parallel().map( idBoya -> {
             BoyaGrande boyaGrande;
@@ -55,6 +61,10 @@ public class BoyaGrandeService {
                 kml.append(this.getKml(boyaGrande, "HUELVA"));
             }else if("3".equals(boyaGrande.getId())){
                 kml.append(this.getKml(boyaGrande, "ALMERÍA"));
+            }else if ("4".equals(boyaGrande.getId())){
+            	kml.append(this.getKml(boyaGrande, "CÁDIZ"));
+            }else if ("5".equals(boyaGrande.getId())){
+            	kml.append(this.getKml(boyaGrande, "GRANADA"));
             }
         }
 
@@ -81,7 +91,7 @@ public class BoyaGrandeService {
 
     public List<BoyaGrande> getUltimoTrack() {
         List<BoyaGrande> listaBoyasGrandes;
-        List<Integer> idsBoya = Arrays.asList(2, 3);
+        List<Integer> idsBoya = Arrays.asList(2, 3, 4, 5);
         listaBoyasGrandes = idsBoya.stream().parallel().map( idBoya -> {
             BoyaGrande boyaGrande;
             boyaGrande =  this.getBoyaUltimoTrack(idBoya);

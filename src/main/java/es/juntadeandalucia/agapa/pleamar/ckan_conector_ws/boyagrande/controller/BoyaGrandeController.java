@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -52,6 +53,11 @@ public class BoyaGrandeController {
     @GetMapping("/boya/{idBoya}/tracks")
     public ResponseEntity<BoyaGrandeTracks> getBoyaTracks(@PathVariable long idBoya) {
         return new ResponseEntity<>(this.boyaGrandeService.getBoyaTracks(idBoya), HttpStatus.OK);
+    }
+
+    @GetMapping("/boya/{idBoya}/tracks/{fechaInicio}/{fechaFin}")
+    public ResponseEntity<BoyaGrandeTracks> getBoyaFilterDates(@PathVariable long idBoya, @PathVariable String fechaInicio, @PathVariable String fechaFin){
+        return new ResponseEntity<>(this.boyaGrandeService.getBoyaFilterDates(idBoya,fechaInicio,fechaFin), HttpStatus.OK);
     }
 
     @GetMapping("/kml")

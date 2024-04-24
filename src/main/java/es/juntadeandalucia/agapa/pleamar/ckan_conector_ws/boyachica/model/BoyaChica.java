@@ -7,6 +7,8 @@ public class BoyaChica {
 
     private String name;
 
+    private int id;
+
     private BoyaChicaRegistro[] data;
 
     public BoyaChica() {
@@ -32,4 +34,10 @@ public class BoyaChica {
         this.name = name;
     }
 
+    public int getId() {return id;}
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
+
