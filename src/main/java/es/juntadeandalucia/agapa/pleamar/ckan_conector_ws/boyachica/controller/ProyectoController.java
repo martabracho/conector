@@ -3,6 +3,8 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChica;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChicaGenerales;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChicaItem;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.ProyectoItem;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service.BoyaChicaService;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service.ProyectoService;
@@ -39,6 +41,12 @@ public class ProyectoController {
     public ResponseEntity<String> getProyecto(@PathVariable String codigoProyecto) throws JsonProcessingException {
         return new ResponseEntity<>(this.proyectoService.getProyecto(codigoProyecto).toString(), HttpStatus.OK);
     }
+
+    @GetMapping("/{codigoProyecto}/detalle")
+    public ResponseEntity<BoyaChicaGenerales[]> getProyectoGeneral(@PathVariable String codigoProyecto) throws JsonProcessingException{
+        return new ResponseEntity<>(this.proyectoService.getProyectoDetalle(codigoProyecto), HttpStatus.OK);
+    }
+
 
     @GetMapping("/{codigoProyecto}/{idBoya}")
     public ResponseEntity<BoyaChica> getProyecto(@PathVariable String codigoProyecto, @PathVariable int idBoya) throws JsonProcessingException {

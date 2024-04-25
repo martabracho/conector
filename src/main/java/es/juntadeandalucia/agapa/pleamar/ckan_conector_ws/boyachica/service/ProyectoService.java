@@ -1,10 +1,7 @@
 package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChica;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChicaItem;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.Proyecto;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.ProyectoItem;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.*;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.repository.ProyectoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,6 +31,10 @@ public class ProyectoService {
 
     public Proyecto getProyecto(String codigoProyecto) throws JsonProcessingException {
         return this.proyectoRepository.getProyecto(codigoProyecto);
+    }
+
+    public BoyaChicaGenerales[] getProyectoDetalle(String codigoProyecto) throws  JsonProcessingException{
+        return this.proyectoRepository.getProyectoDetalle(codigoProyecto);
     }
 
 

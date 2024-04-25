@@ -2,6 +2,7 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.controller;
 
 
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChica;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChicaItem;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service.BoyaChicaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/apiboyachica")
@@ -31,5 +33,7 @@ public class BoyaChicaController {
         headers.set(HttpHeaders.CONTENT_TYPE, "application/json");
         return new ResponseEntity<>(this.boyaChicaService.getBoya(codigoProyecto, idBoya, String.valueOf(idBoya)), headers, HttpStatus.OK);
     }
+
+
 
 }
