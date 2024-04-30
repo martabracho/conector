@@ -33,9 +33,10 @@ public class ProyectoService {
         return this.proyectoRepository.getProyecto(codigoProyecto);
     }
 
-    public BoyaChicaGenerales[] getProyectoDetalle(String codigoProyecto) throws  JsonProcessingException{
-        return this.proyectoRepository.getProyectoDetalle(codigoProyecto);
+   public Proyecto getProyectoJSON(String codigoProyecto) throws  JsonProcessingException{
+        return this.proyectoRepository.getProyecto(codigoProyecto);
     }
+
 
 
     public String obtenerKmlBoyasChicas() throws JsonProcessingException {

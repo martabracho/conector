@@ -2,7 +2,6 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.repository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChicaGenerales;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.BoyaChicaItem;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.Proyecto;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.ProyectoItem;
@@ -52,17 +51,6 @@ public class ProyectoRepository {
         return new Proyecto(listaBoyasChicas);
     }
 
-    public BoyaChicaGenerales[] getProyectoDetalle(String codigoProyecto) throws JsonProcessingException {
-        WebClient client = WebClient.create(url);
-        String jsonProyecto = client.get().uri(uriBuilder -> uriBuilder.path(pathBase)
-                .queryParam("username", usuario)
-                .queryParam("key", password)
-                .queryParam("project", codigoProyecto)
-                .build()
-        ).retrieve().bodyToMono(String.class).block();
-        ObjectMapper objectMapper = new ObjectMapper();
-        BoyaChicaGenerales[] listaBoyasChicasDetalle = objectMapper.readValue(jsonProyecto, BoyaChicaGenerales[].class);
-        return listaBoyasChicasDetalle;
-    }
+
 
 }

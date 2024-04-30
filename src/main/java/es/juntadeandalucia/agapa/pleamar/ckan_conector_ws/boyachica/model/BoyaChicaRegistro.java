@@ -322,7 +322,7 @@ public class BoyaChicaRegistro {
         kml.append(", Dirección de onda máxima (grados N)='").append(dirp).append('\'' );
         kml.append(", Dirección media de la onda (grados N)='").append(dirm).append('\'' );
         kml.append(", Dispersión direccional máxima (grados)='").append(sigp).append('\'' );
-        kml.append(", Difusión direccional media (grados)='").append(sigm).append('\'' );
+        kml.append(", Dispersión direccional media (grados)='").append(sigm).append('\'' );
         kml.append(", Latitud (grados N)='").append(lat).append('\'' );
         kml.append(", Longitud (grados E)='").append(lon).append('\'' );
         kml.append(", Temperatura de la superficie del mar (grados C)='").append(sst).append('\'' );

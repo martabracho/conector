@@ -5,4 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Device {
 
+    private Wavebuoy wavebuoy;
+
+    public Wavebuoy getWavebuoy() {
+        return wavebuoy;
+    }
+
+    public void setWavebuoy(Wavebuoy wavebuoy) {
+        this.wavebuoy = wavebuoy;
+    }
+
 }
