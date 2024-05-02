@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BoyaGrande {
     private String id;
+
+    private String position_date_time;
     private String latitude;
     private String longitude;
     private BoyaGrandeData[] data;
@@ -16,6 +18,10 @@ public class BoyaGrande {
     public void setId(String id) {
         this.id = id;
     }
+
+    public  String getPosition_date_time(){return position_date_time;}
+
+    public void setPosition_date_time(String receptionDateTime){this.position_date_time = receptionDateTime;}
 
     public String getLatitude() {
         return latitude;
