@@ -1,0 +1,30 @@
+info:
+  app:
+    name: @project.name@
+    description: @project.description@
+    groupId:  @project.groupId@
+    artifactId: @project.artifactId@
+    version: @project.version@
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: @project.artifactId@
+  profiles:
+    active: default
+  cloud:
+    config:
+      enabled: true
+      profile: v01
+      label: master
+      fail-fast: true
+  jackson:
+    mapper:
+      accept_case_insensitive_properties: true
+
+server:
+  error:
+    whitelabel:
+      enabled: true
+  servlet.contextPath: /agenciaagrariaypesquera/pleamar/conectormarabierto
