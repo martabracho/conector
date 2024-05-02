@@ -31,7 +31,6 @@ public class BoyaGrandeService {
         return this.boyaGrandeRepository.getBoyaUltimoTrack(token, idBoya);
     }
 
-
     public BoyaGrandeTracks getBoyaTracks(long idBoya) {
         String token = this.boyaGrandeRepository.getToken();
         return this.boyaGrandeRepository.getBoyaTracks(token, idBoya);
@@ -101,6 +100,4 @@ public class BoyaGrandeService {
         }  ).toList();
         return listaBoyasGrandes;
     }
-
-
 }

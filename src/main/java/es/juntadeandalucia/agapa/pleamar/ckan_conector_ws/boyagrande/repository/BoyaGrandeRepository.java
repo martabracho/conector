@@ -15,7 +15,6 @@ import reactor.core.publisher.Mono;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Repository
@@ -82,21 +81,6 @@ public class BoyaGrandeRepository {
         return client.get().uri(uriBuilder -> uriBuilder.path(pathBase).path("/tracks/device/").path(String.valueOf(idBoya)).build()).header(HttpHeaders.AUTHORIZATION, BEARER + token).retrieve().bodyToMono(BoyaGrande.class);
     }
 
-
-    private void validarTokenIdBoya (String token){
-        String mensajeError = null;
-        Set<String> mensajeValidacion = new HashSet();
-
-        if (!StringUtils.hasText(token)){
-            mensajeError = "El token es nulo";
-        }
-        if (StringUtils.hasText(mensajeError)){
-            throw new CkanConectorWsErrorException(mensajeError);
-        }
-        if (!mensajeValidacion.isEmpty()){
-            throw new CkanConectorWsValidacionException(mensajeValidacion);
-        }
-    }
 
     private void validarTokenIdBoya(String token, long idBoya) {
         String mensajeError = null;

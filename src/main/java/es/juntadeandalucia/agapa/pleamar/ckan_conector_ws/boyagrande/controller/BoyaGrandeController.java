@@ -50,7 +50,6 @@ public class BoyaGrandeController {
         return new ResponseEntity<>(this.boyaGrandeService.getUltimoTrack(), HttpStatus.OK);
     }
 
-
     @GetMapping("/boya/{idBoya}/tracks")
     public ResponseEntity<BoyaGrandeTracks> getBoyaTracks(@PathVariable long idBoya) {
         return new ResponseEntity<>(this.boyaGrandeService.getBoyaTracks(idBoya), HttpStatus.OK);
