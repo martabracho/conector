@@ -57,6 +57,8 @@ public class BoyaGrandeController {
 
     @GetMapping("/boya/{idBoya}/tracks/{fechaInicio}/{fechaFin}")
     public ResponseEntity<BoyaGrandeTracks> getBoyaFilterDates(@PathVariable long idBoya, @PathVariable String fechaInicio, @PathVariable String fechaFin){
+        fechaInicio = fechaInicio.replace("%20", " ");
+        fechaFin = fechaFin.replace("%20", " ");
         return new ResponseEntity<>(this.boyaGrandeService.getBoyaFilterDates(idBoya,fechaInicio,fechaFin), HttpStatus.OK);
     }
 
