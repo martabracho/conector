@@ -4,7 +4,6 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.controller
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrande;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrandeTracks;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.service.BoyaGrandeService;
-import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.exception.CkanConectorWsErrorException;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.exception.CkanConectorWsValidacionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,16 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -56,13 +51,20 @@ public class BoyaGrandeController {
     }
 
     @GetMapping("/boya/{idBoya}/tracks/{fechaInicio}/{fechaFin}")
-    public ResponseEntity<String> getBoyaFilterDates(@PathVariable long idBoya, @PathVariable String fechaInicio, @PathVariable String fechaFin){
+    public ResponseEntity<BoyaGrandeTracks> getBoyaFilterData(@PathVariable long idBoya, @PathVariable String fechaInicio, @PathVariable String fechaFin){
+        fechaInicio = fechaInicio.replace("%20", " ");
+        fechaFin = fechaFin.replace("%20", " ");
+        return new ResponseEntity<>(this.boyaGrandeService.getFilteredData(idBoya,fechaInicio,fechaFin), HttpStatus.OK);
+    }
+
+    @GetMapping("/boya/{idBoya}/tracks/{fechaInicio}/{fechaFin}/csv")
+    public ResponseEntity<String> getBoyaFilterCsv(@PathVariable long idBoya, @PathVariable String fechaInicio, @PathVariable String fechaFin){
         fechaInicio = fechaInicio.replace("%20", " ");
         fechaFin = fechaFin.replace("%20", " ");
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=estacionOceanografica"+idBoya+".csv");
         headers.set(HttpHeaders.CONTENT_TYPE, "application/csv");
-        return new ResponseEntity<>(this.boyaGrandeService.getBoyaFilterDates(idBoya,fechaInicio,fechaFin),headers, HttpStatus.OK);
+        return new ResponseEntity<>(this.boyaGrandeService.getBoyaFilterCsv(idBoya,fechaInicio,fechaFin),headers, HttpStatus.OK);
     }
 
     @GetMapping("/kml")

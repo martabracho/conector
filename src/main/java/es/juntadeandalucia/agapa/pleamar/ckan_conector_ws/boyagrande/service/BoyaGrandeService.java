@@ -8,7 +8,6 @@ import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.repository.
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class BoyaGrandeService {
         return this.boyaGrandeRepository.getBoyaFilterTracks(token,idBoya,fechaInicio,fechaFin);
     }
 
-    public String getBoyaFilterDates(long idBoya, String fechaIncio, String fechaFin){
+    public String getBoyaFilterCsv(long idBoya, String fechaIncio, String fechaFin){
         String token = this.boyaGrandeRepository.getToken();
         BoyaGrandeTracks tracks = this.getFilteredData(idBoya,fechaIncio,fechaFin);
         StringBuilder csv = new StringBuilder();
