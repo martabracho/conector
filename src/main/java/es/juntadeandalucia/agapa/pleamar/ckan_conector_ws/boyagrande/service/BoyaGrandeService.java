@@ -2,6 +2,7 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.service;
 
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrande;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrandeData;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrandeTrack;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.model.BoyaGrandeTracks;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyagrande.repository.BoyaGrandeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,23 @@ public class BoyaGrandeService {
         return this.boyaGrandeRepository.getBoyaTracks(token, idBoya);
     }
 
-    public BoyaGrandeTracks getBoyaFilterDates(long idBoya, String fechaIncio, String fechaFin){
+    public BoyaGrandeTracks getFilteredData(long idBoya, String fechaInicio, String fechaFin){
         String token = this.boyaGrandeRepository.getToken();
-        return this.boyaGrandeRepository.getBoyaFilterTracks(token, idBoya,fechaIncio,fechaFin);
+        return this.boyaGrandeRepository.getBoyaFilterTracks(token,idBoya,fechaInicio,fechaFin);
+    }
+
+    public String getBoyaFilterDates(long idBoya, String fechaIncio, String fechaFin){
+        String token = this.boyaGrandeRepository.getToken();
+        BoyaGrandeTracks tracks = this.getFilteredData(idBoya,fechaIncio,fechaFin);
+        StringBuilder csv = new StringBuilder();
+        csv.append("abreviation").append(",calculation_abrevation").append(",name").append(",position_date_time").append(",section").append(",unit")
+                .append(",value").append("\n");
+        for (BoyaGrandeTrack item : tracks.getDatas()) {
+           String row = item.getAbreviation()+","+item.getCalculation_abreviation()+","+item.getName()+","+item.getPosition_date_time()
+                   +","+item.getSection()+","+item.getUnit()+","+item.getValue();
+           csv.append(row).append("\n");
+        }
+        return csv.toString();
     }
 
     public String getKml() {

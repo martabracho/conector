@@ -56,10 +56,13 @@ public class BoyaGrandeController {
     }
 
     @GetMapping("/boya/{idBoya}/tracks/{fechaInicio}/{fechaFin}")
-    public ResponseEntity<BoyaGrandeTracks> getBoyaFilterDates(@PathVariable long idBoya, @PathVariable String fechaInicio, @PathVariable String fechaFin){
+    public ResponseEntity<String> getBoyaFilterDates(@PathVariable long idBoya, @PathVariable String fechaInicio, @PathVariable String fechaFin){
         fechaInicio = fechaInicio.replace("%20", " ");
         fechaFin = fechaFin.replace("%20", " ");
-        return new ResponseEntity<>(this.boyaGrandeService.getBoyaFilterDates(idBoya,fechaInicio,fechaFin), HttpStatus.OK);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=estacionOceanografica"+idBoya+".csv");
+        headers.set(HttpHeaders.CONTENT_TYPE, "application/csv");
+        return new ResponseEntity<>(this.boyaGrandeService.getBoyaFilterDates(idBoya,fechaInicio,fechaFin),headers, HttpStatus.OK);
     }
 
     @GetMapping("/kml")
