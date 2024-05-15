@@ -20,7 +20,7 @@ import java.util.Set;
 @Repository
 public class BoyaGrandeRepository {
 
-    public static final int SIZE_BUFFER_STREAM = 40 * 1024 * 1024;
+    public static final int SIZE_BUFFER_STREAM = 300 * 1024 * 1024;
     public static final String BEARER = "Bearer ";
 
     @Value("${boyasgrandes.api.url}")
