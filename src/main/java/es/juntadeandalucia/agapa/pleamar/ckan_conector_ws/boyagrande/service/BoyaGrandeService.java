@@ -42,7 +42,7 @@ public class BoyaGrandeService {
     }
 
     public String getBoyaFilterCsv(long idBoya, String fechaIncio, String fechaFin){
-        String token = this.boyaGrandeRepository.getToken();
+        //String token = this.boyaGrandeRepository.getToken();
         BoyaGrandeTracks tracks = this.getFilteredData(idBoya,fechaIncio,fechaFin);
         StringBuilder csv = new StringBuilder();
         csv.append("abreviation").append(",calculation_abrevation").append(",name").append(",position_date_time").append(",section").append(",unit")
