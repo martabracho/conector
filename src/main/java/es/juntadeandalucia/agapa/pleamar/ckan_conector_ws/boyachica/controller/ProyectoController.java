@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -37,6 +38,13 @@ public class ProyectoController {
     @GetMapping("/{codigoProyecto}")
     public ResponseEntity<String> getProyecto(@PathVariable String codigoProyecto) throws JsonProcessingException {
         return new ResponseEntity<>(this.proyectoService.getProyecto(codigoProyecto).toString(), HttpStatus.OK);
+    }
+    @GetMapping("/{codigoProyecto}/{idBoya}/{fecha_inicio}/{fecha_fin}")
+    public ResponseEntity<Registro> boyasChicasFilterData(@PathVariable String codigoProyecto,
+                                                        @PathVariable int idBoya, @PathVariable String fecha_inicio, @PathVariable String fecha_fin)
+            throws JsonProcessingException {
+
+        return new ResponseEntity<>(this.proyectoService.getboyasChicasFilterData(codigoProyecto,idBoya,fecha_inicio,fecha_fin), HttpStatus.OK);
     }
 
     @GetMapping("/{codigoProyecto}/json2")
@@ -71,4 +79,4 @@ public class ProyectoController {
         return new ResponseEntity<>(this.proyectoService.obtenerJsonBoyasChicas(codigoProyecto), headers, HttpStatus.OK);
     }
 
-}
+   }

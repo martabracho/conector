@@ -2,10 +2,13 @@ package es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.*;
+import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.repository.BoyaChicaRepository;
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.repository.ProyectoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,10 +22,13 @@ public class ProyectoService {
 
     private final BoyaChicaService boyaChicaService;
 
+    private final BoyaChicaRepository boyaChicaRepository;
+
     @Autowired
-    public ProyectoService(ProyectoRepository proyectoRepository, BoyaChicaService boyaChicaService) {
+    public ProyectoService(ProyectoRepository proyectoRepository, BoyaChicaService boyaChicaService, BoyaChicaRepository boyaChicaRepository) {
         this.proyectoRepository = proyectoRepository;
         this.boyaChicaService = boyaChicaService;
+        this.boyaChicaRepository = boyaChicaRepository;
     }
 
     public List<ProyectoItem> getProyectosItem() throws JsonProcessingException {
@@ -31,6 +37,11 @@ public class ProyectoService {
 
     public Proyecto getProyecto(String codigoProyecto) throws JsonProcessingException {
         return this.proyectoRepository.getProyecto(codigoProyecto);
+    }
+
+    public Registro getboyasChicasFilterData(String codigoProyecto, int idBoya, String fecha_inicio, String fecha_fin) throws JsonProcessingException {
+
+        return this.boyaChicaRepository.getBoyaChicaFilteredData(codigoProyecto,idBoya,fecha_inicio,fecha_fin);
     }
 
    public Proyecto getProyectoJSON(String codigoProyecto) throws  JsonProcessingException{
@@ -94,4 +105,6 @@ public class ProyectoService {
             }
         return listaBoyaChica;
     }
+
+
 }
