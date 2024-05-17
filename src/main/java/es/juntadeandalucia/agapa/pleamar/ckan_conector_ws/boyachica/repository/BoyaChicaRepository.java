@@ -8,6 +8,7 @@ import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -28,6 +29,8 @@ public class BoyaChicaRepository {
     @Value("${boyaschicas.api.password}")
     private String password;
 
+    public static final int SIZE_BUFFER_STREAM = 300 * 1024 * 1024;
+
     public BoyaChica getBoyaChica(String project, int idBoya) throws JsonProcessingException {
         WebClient client = WebClient.create(url);
         String jsonBoyaChica = client.get().uri(uriBuilder -> uriBuilder.path(pathBase)
@@ -47,7 +50,8 @@ public class BoyaChicaRepository {
     }
 
     public Registro getBoyaChicaFilteredData(String project, int idBoya, String fecha_inicio, String fecha_fin) throws JsonProcessingException {
-        WebClient client = WebClient.create(url);
+        final ExchangeStrategies strategies = ExchangeStrategies.builder().codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(SIZE_BUFFER_STREAM)).build();
+        WebClient client = WebClient.builder().exchangeStrategies(strategies).baseUrl(url).build();
         String initDate = fecha_inicio+"T00:00:00";
         String endDate = fecha_fin+"T00:00:00";
         String jsonProyecto = client.get().uri(uriBuilder -> uriBuilder.path(pathBase)
