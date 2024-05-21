@@ -48,7 +48,23 @@ public class ProyectoService {
         return this.proyectoRepository.getProyecto(codigoProyecto);
     }
 
+    public String getBoyaChicaFilterCsv (String codigoProyecto, int idBoya, String fechaIncio, String fechaFin) throws JsonProcessingException {
 
+        Registro registro = boyaChicaRepository.getBoyaChicaFilteredData(codigoProyecto,idBoya,fechaIncio,fechaFin);
+        StringBuilder csv = new StringBuilder();
+        //Cabecera
+        csv.append("time").append(",Hm0").append(",Hmax").append(",Hsw").append(",Tp").append(",Tsw").append(",Tm01").append(",Tm02").append(",Tm10")
+                .append(",Tavg").append(",Tmax").append(",Dirp").append(",Dirm").append(",Dirsw").append(",Sigp").append(",Sigm").append(",lat").append(",lon")
+                .append(",sst").append(",tstr").append("\n");
+
+        for (BoyaChicaRegistro item: registro.getBoyaChicaRegistro()){
+            String row = item.getTime()+","+item.getHm0()+","+item.getHmax()+","+item.getHsw()+","+item.getTp()+","+item.getTsw()+","+item.getTm01()
+                    +item.getTm02()+","+item.getTm10()+","+item.getTavg()+","+item.getTmax()+","+item.getDirp()+","+item.getDirm()+","+item.getDirsw()
+                    +item.getSigp()+","+item.getSigm()+","+item.getLat()+","+item.getLon()+","+item.getSst()+","+item.getTstr();
+            csv.append(row).append("\n");
+        }
+        return csv.toString();
+    }
 
     public String obtenerKmlBoyasChicas() throws JsonProcessingException {
         StringBuilder kml = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
@@ -85,7 +101,7 @@ public class ProyectoService {
     }
 
 
-    public List<BoyaChica> obtenerJsonBoyasChicas() throws JsonProcessingException {
+   /* public List<BoyaChica> obtenerJsonBoyasChicas() throws JsonProcessingException {
 
         List<BoyaChica> listaBoyaChica = new ArrayList<>();
         for (ProyectoItem proyectoItem : this.getProyectosItem()) {
@@ -95,7 +111,7 @@ public class ProyectoService {
             }
         }
         return listaBoyaChica;
-    }
+    }*/
 
     public List<BoyaChica> obtenerJsonBoyasChicas(String codigoProyecto) throws JsonProcessingException {
         List<BoyaChica> listaBoyaChica = new ArrayList<>();

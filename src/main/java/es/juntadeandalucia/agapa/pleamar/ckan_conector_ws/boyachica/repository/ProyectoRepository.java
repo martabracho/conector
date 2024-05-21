@@ -7,6 +7,7 @@ import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.Proyec
 import es.juntadeandalucia.agapa.pleamar.ckan_conector_ws.boyachica.model.ProyectoItem;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import java.util.List;
 @Repository
 public class ProyectoRepository {
 
+    public static final int SIZE_BUFFER_STREAM = 300 * 1024 * 1024;
     @Value("${boyaschicas.api.url}")
     private String url;
     @Value("${boyaschicas.api.pathBase}")
@@ -51,6 +53,11 @@ public class ProyectoRepository {
         return new Proyecto(listaBoyasChicas);
     }
 
+    public Proyecto getBoyaFilterData (String token, long idBoya, String fechaInicio, String fechaFin){
+        final ExchangeStrategies strategies = ExchangeStrategies.builder().codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(SIZE_BUFFER_STREAM)).build();
+        WebClient client = WebClient.builder().exchangeStrategies(strategies).baseUrl(url).build();
+        return null;
+    }
 
 
 }

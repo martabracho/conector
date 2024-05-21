@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -30,10 +28,10 @@ public class ProyectoController {
         this.boyaChicaService = boyaChicaService;
     }
 
-    @GetMapping("/item")
+   /* @GetMapping("/item")
     public ResponseEntity<List<ProyectoItem>> getProyectos() throws JsonProcessingException {
         return new ResponseEntity<>(this.proyectoService.getProyectosItem(), HttpStatus.OK);
-    }
+    }*/
 
     @GetMapping("/{codigoProyecto}")
     public ResponseEntity<String> getProyecto(@PathVariable String codigoProyecto) throws JsonProcessingException {
@@ -47,11 +45,15 @@ public class ProyectoController {
         return new ResponseEntity<>(this.proyectoService.getboyasChicasFilterData(codigoProyecto,idBoya,fecha_inicio,fecha_fin), HttpStatus.OK);
     }
 
-    @GetMapping("/{codigoProyecto}/json2")
-    public ResponseEntity<Proyecto> getProyectoJSON(@PathVariable String codigoProyecto) throws JsonProcessingException{
-        return new ResponseEntity<>(this.proyectoService.getProyectoJSON(codigoProyecto), HttpStatus.OK);
+    @GetMapping("/{codigoProyecto}/{idBoya}/{fecha_inicio}/{fecha_fin}/csv")
+    public ResponseEntity<String> boyasChicasFilterDataCsv(@PathVariable String codigoProyecto,
+                                                          @PathVariable int idBoya, @PathVariable String fecha_inicio,
+                                                           @PathVariable String fecha_fin) throws JsonProcessingException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=boya" + idBoya+".csv");
+        headers.set(HttpHeaders.CONTENT_TYPE, "application/csv");
+        return new ResponseEntity<>(this.proyectoService.getBoyaChicaFilterCsv(codigoProyecto,idBoya,fecha_inicio,fecha_fin), headers, HttpStatus.OK);
     }
-
 
     @GetMapping("/{codigoProyecto}/{idBoya}")
     public ResponseEntity<BoyaChica> getProyecto(@PathVariable String codigoProyecto, @PathVariable int idBoya) throws JsonProcessingException {
@@ -66,17 +68,22 @@ public class ProyectoController {
         return new ResponseEntity<>(this.proyectoService.obtenerKmlBoyasChicas(), headers, HttpStatus.OK);
     }
 
-    @GetMapping("/json")
+  /*  @GetMapping("/json")
     public ResponseEntity<List<BoyaChica>> boyasChicasJSON() throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_TYPE, "application/json");
         return new ResponseEntity<>(this.proyectoService.obtenerJsonBoyasChicas(), headers, HttpStatus.OK);
-    }
+    }*/
     @GetMapping("/{codigoProyecto}/json")
     public ResponseEntity<List<BoyaChica>> boyasChicasProyectoJSON(@PathVariable String codigoProyecto) throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_TYPE, "application/json");
         return new ResponseEntity<>(this.proyectoService.obtenerJsonBoyasChicas(codigoProyecto), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/{codigoProyecto}/json2")
+    public ResponseEntity<Proyecto> getProyectoJSON(@PathVariable String codigoProyecto) throws JsonProcessingException{
+        return new ResponseEntity<>(this.proyectoService.getProyectoJSON(codigoProyecto), HttpStatus.OK);
     }
 
    }

@@ -73,4 +73,29 @@ public class BoyaChicaRepository {
       //return null;
     }
 
+
+    public Registro getBoyaChicaFilteredDataCsv(String project, int idBoya, String fecha_inicio, String fecha_fin) throws JsonProcessingException {
+        final ExchangeStrategies strategies = ExchangeStrategies.builder().codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(SIZE_BUFFER_STREAM)).build();
+        WebClient client = WebClient.builder().exchangeStrategies(strategies).baseUrl(url).build();
+        String initDate = fecha_inicio+"T00:00:00";
+        String endDate = fecha_fin+"T00:00:00";
+        String jsonProyecto = client.get().uri(uriBuilder -> uriBuilder.path(pathBase)
+                .queryParam("username", usuario)
+                .queryParam("key", password)
+                .queryParam("project", project)
+                .queryParam("station", idBoya)
+                .queryParam("dataonly")
+                .queryParam("from", initDate)
+                .queryParam("to", endDate)
+                .queryParam("tz", "local")
+                .build()
+        ).retrieve().bodyToMono(String.class).block();
+        //ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = JsonMapper.builder().configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true).build();
+       // BoyaChicaRegistro[] listaRegistros = objectMapper.readValue(jsonProyecto, BoyaChicaRegistro[].class);
+        //return new Registro(listaRegistros);
+
+        return null;
+    }
+
 }

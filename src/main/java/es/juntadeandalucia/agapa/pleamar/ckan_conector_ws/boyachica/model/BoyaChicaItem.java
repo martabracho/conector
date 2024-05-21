@@ -9,8 +9,6 @@ public class BoyaChicaItem {
     private int id;
     private String latitude;
     private String longitude;
-
-
     private Device devices;
 
     public String getName() {
